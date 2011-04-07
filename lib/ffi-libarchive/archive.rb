@@ -116,4 +116,47 @@ module Archive
         end
     end
 
+    class BaseArchive
+
+        def initialize archive
+            @archive = archive
+            @archive_free = [false]
+            raise Error, @archive unless @archive
+
+            ObjectSpace.define_finalizer( self, Reader.finalizer(@archive, @archive_free) )
+        end
+
+        def self.finalizer archive, archive_free
+            Proc.new do |*args|
+                unless archive_free[0]
+                    C::archive_read_finish(archive)
+                end
+            end
+        end
+
+        def close
+            # TODO: do we need synchronization here?
+            @archive_free[0] = true
+            if @archive
+                raise Error, @archive if C::archive_read_finish(@archive) != C::OK
+            end
+        ensure
+            @archive = nil
+        end
+
+        def archive
+            raise Error, "No archive open" unless @archive
+            @archive
+        end
+        protected :archive
+
+        def error_string
+            C::archive_error_string(@archive)
+        end
+
+        def errno
+            C::archive_errno(@archive)
+        end
+    end
+
 end
