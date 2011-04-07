@@ -2,6 +2,8 @@ module Archive
 
     class Writer
 
+        private_class_method :new
+
         def self.open_filename file_name, compression, format
             if block_given?
                 writer = open_filename file_name, compression, format

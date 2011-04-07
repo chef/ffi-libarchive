@@ -6,12 +6,34 @@ module Archive
         extend FFI::Library
         ffi_lib ["archive", "libarchive.so.2"]
 
-        attach_function :archive_read_open_filename, [:pointer, :string, :size_t], :int
-        attach_function :archive_read_open_memory, [:pointer, :pointer, :size_t], :int
-        attach_function :archive_write_open_filename, [:pointer, :string], :int
-        attach_function :archive_write_open_memory, [:pointer, :pointer, :size_t, :pointer], :int
         attach_function :archive_version_number, [], :int
         attach_function :archive_version_string, [], :string
+        attach_function :archive_error_string, [:pointer], :string
+
+        attach_function :archive_read_new, [], :pointer
+        attach_function :archive_read_open_filename, [:pointer, :string, :size_t], :int
+        attach_function :archive_read_open_memory, [:pointer, :pointer, :size_t], :int
+        attach_function :archive_read_support_compression_program, [:pointer, :string], :int
+        attach_function :archive_read_support_compression_all, [:pointer], :int
+        attach_function :archive_read_support_format_all, [:pointer], :int
+        # TODO: this function has been renamed to :archive_read_free in libarchive 3.0
+        attach_function :archive_read_finish, [:pointer], :int
+        attach_function :archive_read_extract, [:pointer, :pointer, :int], :int
+        attach_function :archive_read_header_position, [:pointer], :int
+        attach_function :archive_read_next_header, [:pointer, :pointer], :int
+        attach_function :archive_read_data, [:pointer, :pointer, :size_t], :size_t
+        attach_function :archive_read_data_into_fd, [:pointer, :int], :int
+
+        attach_function :archive_write_open_filename, [:pointer, :string], :int
+        attach_function :archive_write_open_memory, [:pointer, :pointer, :size_t, :pointer], :int
+
+        OK     = 0
+        RETRY  = (-10)
+        WARN   = (-20)
+        FAILED = (-25)
+        FATAL  = (-30)
+
+        DATA_BUFFER_SIZE = 2**16
     end
 
     COMPRESSION_NONE     = 0
@@ -89,6 +111,9 @@ module Archive
     end
 
     class Error < StandardError
+        def initialize(archive)
+            super C::archive_error_string(archive)
+        end
     end
 
 end

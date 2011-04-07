@@ -2,6 +2,22 @@ module Archive
 
     class Entry
 
+        def self.from_pointer entry
+            new entry
+        end
+
+        def initialize entry
+            if entry
+                @entry = entry
+                @entry_free = [true]
+            else
+                @entry_free = [false]
+            end
+        end
+
+        def close
+        end
+
         def atime
         end
 
@@ -30,9 +46,6 @@ module Archive
         end
 
         def character_special?
-        end
-
-        def close
         end
 
         def copy_fflags_text
