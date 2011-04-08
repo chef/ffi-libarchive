@@ -75,30 +75,28 @@ module Archive
             end
         end
 
-        def read_data size = C::DATA_BUFFER_SIZE
-            if block_given?
-                buffer = FFI::MemoryPointer.new :uchar, size
-                while (n = C::archive_read_data(archive, buffer, C::DATA_BUFFER_SIZE)) > 0
-                    case n
-                    when C::FATAL, C::WARN, C::RETRY
-                        raise Error, @archive
-                    else
-                        yield buffer.read_string(n)
-                    end
-                end
-            else
+        def read_data size = C::DATA_BUFFER_SIZE, &block
+            raise ArgumentError, "Buffer size must be > 0" unless size.kind_of?(Integer) and size > 0
+
+            data = nil
+            unless block
                 data = ""
-                buffer = FFI::MemoryPointer.new :uchar, size
-                while (n = C::archive_read_data(archive, buffer, C::DATA_BUFFER_SIZE)) > 0
-                    case n
-                    when C::FATAL, C::WARN, C::RETRY
-                        raise Error, @archive
-                    else
-                        data.concat buffer.read_string(n)
-                    end
-                end
-                data
+                block = data.method :concat
             end
+
+            buffer = FFI::Buffer.alloc_out(size)
+            len = 0
+            while (n = C::archive_read_data(archive, buffer, size)) > 0
+                case n
+                when C::FATAL, C::WARN, C::RETRY
+                    raise Error, @archive
+                else
+                    block.call buffer.get_bytes(0,n)
+                end
+                len += n
+            end
+
+            data || len
         end
 
         def save_data file_name
