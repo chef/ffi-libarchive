@@ -118,30 +118,29 @@ module Archive
 
     class BaseArchive
 
-        def initialize archive
-            @archive = archive
-            @archive_free = [false]
+        def initialize alloc, free
+            @archive = alloc.call
+            @archive_free = [nil]
             raise Error, @archive unless @archive
 
-            ObjectSpace.define_finalizer( self, Reader.finalizer(@archive, @archive_free) )
+            @archive_free[0] = free
+            ObjectSpace.define_finalizer( self, BaseArchive.finalizer(@archive, @archive_free) )
         end
 
         def self.finalizer archive, archive_free
             Proc.new do |*args|
-                unless archive_free[0]
-                    C::archive_read_finish(archive)
-                end
+                archive_free[0].call(archive) if archive_free[0]
             end
         end
 
         def close
             # TODO: do we need synchronization here?
-            @archive_free[0] = true
             if @archive
-                raise Error, @archive if C::archive_read_finish(@archive) != C::OK
+                raise Error, @archive if @archive_free[0].call(@archive) != C::OK
             end
         ensure
             @archive = nil
+            @archive_free[0] = nil
         end
 
         def archive

@@ -29,7 +29,7 @@ module Archive
         end
 
         def initialize params = {}
-            super C::archive_read_new
+            super C::method(:archive_read_new), C::method(:archive_read_finish)
 
             if params[:command]
                 cmd = params[:command]
