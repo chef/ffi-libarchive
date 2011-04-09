@@ -49,7 +49,7 @@ class TS_WriteArchive < Test::Unit::TestCase
       ar.new_entry do |entry|
         entry.pathname = entry_path
         entry.mode = entry_mode
-        entry.filetype = eval "Archive::ENTRY_#{entry_type.upcase}"
+        entry.filetype = eval "Archive::Entry::#{entry_type.upcase}"
         entry.size = entry_content.size if entry_content
         entry.symlink = entry_content if entry_type == 'symbolic_link'
         entry.atime = Time.now.to_i

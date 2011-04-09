@@ -18,7 +18,7 @@ module Archive
             end
         end
 
-        def self.open_memory string, command = nil, &block
+        def self.open_memory string, command = nil
             if block_given?
                 reader = open_memory string, command
                 yield reader
@@ -67,9 +67,10 @@ module Archive
             entry_ptr = FFI::MemoryPointer.new(:pointer)
             case C::archive_read_next_header(archive, entry_ptr)
             when C::OK
-                Entry.from_pointer entry_ptr.get_pointer(0)
+                Entry.from_pointer entry_ptr.read_pointer
             when C::EOF
                 @eof = true
+                nil
             else
                 raise Error, @archive
             end

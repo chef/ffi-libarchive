@@ -16,7 +16,7 @@ class TS_ReadArchive < Test::Unit::TestCase
   ]
 
   def setup
-    @archive_content = File.open('data/test.tar.gz').read
+    @archive_content = File.open('data/test.tar.gz', 'rb').read
   end
 
 
@@ -61,7 +61,7 @@ class TS_ReadArchive < Test::Unit::TestCase
         ar.new_entry do |entry|
           entry.pathname = "chubby.dat"
           entry.mode = 0666
-          entry.filetype = Archive::ENTRY_FILE
+          entry.filetype = Archive::Entry::FILE
           entry.atime = Time.now.to_i
           entry.mtime = Time.now.to_i
           entry.size = entry_size
