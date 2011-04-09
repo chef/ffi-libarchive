@@ -9,6 +9,7 @@ module Archive
         attach_function :archive_version_number, [], :int
         attach_function :archive_version_string, [], :string
         attach_function :archive_error_string, [:pointer], :string
+        attach_function :archive_errno, [:pointer], :int
 
         attach_function :archive_read_new, [], :pointer
         attach_function :archive_read_open_filename, [:pointer, :string, :size_t], :int
@@ -24,28 +25,70 @@ module Archive
         attach_function :archive_read_data, [:pointer, :pointer, :size_t], :size_t
         attach_function :archive_read_data_into_fd, [:pointer, :int], :int
 
+        attach_function :archive_write_new, [], :pointer
         attach_function :archive_write_open_filename, [:pointer, :string], :int
-        attach_function :archive_write_open_memory, [:pointer, :pointer, :size_t, :pointer], :int
+        callback :archive_open_callback, [:pointer, :pointer], :int
+        callback :archive_write_callback, [:pointer, :pointer, :pointer, :size_t], :int
+        callback :archive_close_callback, [:pointer, :pointer], :int
+        attach_function :archive_write_open, [:pointer, :pointer, :archive_open_callback, :archive_write_callback, :archive_close_callback], :int
+        # TODO: catch errors if not defined
+        attach_function :archive_write_set_compression_none, [:pointer], :int
+        attach_function :archive_write_set_compression_gzip, [:pointer], :int
+        attach_function :archive_write_set_compression_bzip2, [:pointer], :int
+        attach_function :archive_write_set_compression_compress, [:pointer], :int
+        attach_function :archive_write_set_compression_lzma, [:pointer], :int
+        attach_function :archive_write_set_compression_xz, [:pointer], :int
+        attach_function :archive_write_set_compression_program, [:pointer, :string], :int
 
+        def self.archive_write_set_compression(archive, compression)
+            case compression
+            when String
+                archive_write_set_compression_program archive, compression
+            when COMPRESSION_BZIP2
+                archive_write_set_compression_bzip2 archive
+            when COMPRESSION_GZIP
+                archive_write_set_compression_gzip archive
+            when COMPRESSION_LZMA
+                archive_write_set_compression_lzma archive
+            when COMPRESSION_XZ
+                archive_write_set_compression_xz archive
+            when COMPRESSION_COMPRESS
+                archive_write_set_compression_compress archive
+            when COMPRESSION_NONE
+                archive_write_set_compression_none archive
+            else
+                raise "Unknown compression type: #{compression}"
+            end
+        end
+
+        attach_function :archive_write_set_format, [:pointer, :int], :int
+        attach_function :archive_write_data, [:pointer, :string, :size_t], :ssize_t
+        attach_function :archive_write_header, [:pointer, :pointer], :int
+        attach_function :archive_write_finish, [:pointer], :void
+        attach_function :archive_write_get_bytes_in_last_block, [:pointer], :int
+        attach_function :archive_write_set_bytes_in_last_block, [:pointer, :int], :int
+
+        attach_function :archive_entry_new, [], :pointer
+        attach_function :archive_entry_free, [:pointer], :void
         attach_function :archive_entry_atime, [:pointer], :time_t
         attach_function :archive_entry_atime_nsec, [:pointer, :time_t, :long], :void
         attach_function :archive_entry_atime_is_set, [:pointer], :int
-        attach_function :archive_entry_set_atime, [:pointer], :int
+        attach_function :archive_entry_set_atime, [:pointer, :time_t, :long], :int
         attach_function :archive_entry_unset_atime, [:pointer], :int
         attach_function :archive_entry_birthtime, [:pointer], :time_t
         attach_function :archive_entry_birthtime_nsec, [:pointer, :time_t, :long], :void
         attach_function :archive_entry_birthtime_is_set, [:pointer], :int
-        attach_function :archive_entry_set_birthtime, [:pointer], :int
+        attach_function :archive_entry_set_birthtime, [:pointer, :time_t, :long], :int
         attach_function :archive_entry_unset_birthtime, [:pointer], :int
         attach_function :archive_entry_ctime, [:pointer], :time_t
         attach_function :archive_entry_ctime_nsec, [:pointer, :time_t, :long], :void
         attach_function :archive_entry_ctime_is_set, [:pointer], :int
-        attach_function :archive_entry_set_ctime, [:pointer], :int
+        attach_function :archive_entry_set_ctime, [:pointer, :time_t, :long], :int
         attach_function :archive_entry_unset_ctime, [:pointer], :int
         attach_function :archive_entry_mtime, [:pointer], :time_t
         attach_function :archive_entry_mtime_nsec, [:pointer, :time_t, :long], :void
         attach_function :archive_entry_mtime_is_set, [:pointer], :int
-        attach_function :archive_entry_set_mtime, [:pointer], :int
+        attach_function :archive_entry_set_mtime, [:pointer, :time_t, :long], :int
         attach_function :archive_entry_unset_mtime, [:pointer], :int
         attach_function :archive_entry_dev, [:pointer], :dev_t
         attach_function :archive_entry_set_dev, [:pointer, :dev_t], :void
@@ -106,6 +149,7 @@ module Archive
         attach_function :archive_entry_xattr_reset, [:pointer], :int
         attach_function :archive_entry_xattr_next, [:pointer, :pointer, :pointer, :pointer], :int
 
+        EOF    = 1
         OK     = 0
         RETRY  = (-10)
         WARN   = (-20)
@@ -191,13 +235,19 @@ module Archive
 
     class Error < StandardError
         def initialize(archive)
-            super C::archive_error_string(archive)
+            if archive.kind_of? String
+                super archive
+            else
+                super "[#{C::archive_errno(archive)}] #{C::archive_error_string(archive)}"
+            end
         end
     end
 
     class BaseArchive
 
         def initialize alloc, free
+            @archive = nil
+            @archive_free = nil
             @archive = alloc.call
             @archive_free = [nil]
             raise Error, @archive unless @archive
@@ -215,7 +265,8 @@ module Archive
         def close
             # TODO: do we need synchronization here?
             if @archive
-                raise Error, @archive if @archive_free[0].call(@archive) != C::OK
+                # TODO: Error check?
+                @archive_free[0].call(@archive)
             end
         ensure
             @archive = nil

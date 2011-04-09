@@ -11,11 +11,19 @@ module Archive
         S_IFCHR  = 0020000 #  character device
         S_IFIFO  = 0010000 #  FIFO
 
+        SOCKET            = 0140000 #  socket
+        SYMBOLIC_LINK     = 0120000 #  symbolic link
+        FILE              = 0100000 #  regular file
+        BLOCK_SPECIAL     = 0060000 #  block device
+        DIRECTORY         = 0040000 #  directory
+        CHARACTER_SPECIAL = 0020000 #  character device
+        FIFO              = 0010000 #  FIFO
+
         def self.from_pointer entry
             new entry
         end
 
-        def initialize entry
+        def initialize entry = nil
             @entry_free = [true]
             if entry
                 @entry = entry
@@ -49,16 +57,6 @@ module Archive
             raise "No entry object" unless @entry
             @entry
         end
-        protected :entry
-
-        def initialize entry
-            if entry
-                @entry = entry
-                @entry_free = [true]
-            else
-                @entry_free = [false]
-            end
-        end
 
         def atime
             Time.at C::archive_entry_atime(entry)
@@ -69,7 +67,7 @@ module Archive
         end
 
         def set_atime time, nsec
-            C::archive_entry_set_atime(entry, time.to_sec, nsec)
+            C::archive_entry_set_atime(entry, time.to_i, nsec)
         end
 
         def atime_is_set?
@@ -89,7 +87,7 @@ module Archive
         end
 
         def set_birthtime time, nsec
-            C::archive_entry_set_birthtime(entry, time.to_sec, nsec)
+            C::archive_entry_set_birthtime(entry, time.to_i, nsec)
         end
 
         def birthtime_is_set?
@@ -109,7 +107,7 @@ module Archive
         end
 
         def set_ctime time, nsec
-            C::archive_entry_set_ctime(entry, time.to_sec, nsec)
+            C::archive_entry_set_ctime(entry, time.to_i, nsec)
         end
 
         def ctime_is_set?
@@ -139,6 +137,7 @@ module Archive
         def regular?
             C::archive_entry_filetype(entry) & S_IFMT == S_IFREG
         end
+        alias :file? :regular?
 
         def socket?
             C::archive_entry_filetype(entry) & S_IFMT == S_IFSOCK
@@ -294,7 +293,7 @@ module Archive
         end
 
         def set_mtime time, nsec
-            C::archive_entry_set_mtime(entry, time.to_sec, nsec)
+            C::archive_entry_set_mtime(entry, time.to_i, nsec)
         end
 
         def mtime_is_set?
