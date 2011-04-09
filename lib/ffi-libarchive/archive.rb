@@ -196,7 +196,8 @@ module Archive
             @archive_free = [nil]
             raise Error, @archive unless @archive
 
-            ObjectSpace.define_finalizer( self, Reader.finalizer(@archive, @archive_free) )
+            @archive_free[0] = free
+            ObjectSpace.define_finalizer( self, BaseArchive.finalizer(@archive, @archive_free) )
         end
 
         def self.finalizer archive, archive_free
