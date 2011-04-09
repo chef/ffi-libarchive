@@ -84,20 +84,20 @@ module Archive
             Time.at C::archive_entry_birthtime(entry)
         end
 
-        def birthtime_is_set?
-            C::archive_entry_birthtime_is_set(entry) != 0
-        end
-
-        def birthtime_nsec
-            C::archive_entry_birthtime_nsec(entry)
-        end
-
         def birthtime= time
             set_birthtime time, 0
         end
 
         def set_birthtime time, nsec
             C::archive_entry_set_birthtime(entry, time.to_sec, nsec)
+        end
+
+        def birthtime_is_set?
+            C::archive_entry_birthtime_is_set(entry) != 0
+        end
+
+        def birthtime_nsec
+            C::archive_entry_birthtime_nsec(entry)
         end
 
         def ctime
@@ -168,10 +168,14 @@ module Archive
             nil
         end
 
-        def copy_lstat
+        def copy_lstat file_name
+            # TODO implement this
+            raise "copy_lstat can currently not be implemented because lstat is magically defined in libc"
         end
 
-        def copy_pathname
+        def copy_pathname file_name
+            C::archive_entry_copy_pathname(entry, file_name)
+            nil
         end
 
         def copy_sourcepath path
@@ -180,7 +184,8 @@ module Archive
         end
 
         def copy_stat filename
-            #C::archive_entry_copy_stat(entry)
+            # TODO implement this
+            raise "copy_stat can currently not be implemented because stat is magically defined in libc"
         end
 
         def copy_symlink slnk
@@ -412,19 +417,33 @@ module Archive
             C::archive_entry_unset_size(entry)
         end
 
-        def xattr_add_entry
+        def xattr_add_entry name, value
+            C::archive_entry_xattr_add_entry(entry, name, value, value.size)
         end
 
         def xattr_clear
+            C::archive_entry_xattr_clear(entry)
         end
 
         def xattr_count
+            C::archive_entry_xattr_count(entry)
         end
 
         def xattr_next
+            name = FFI::MemoryPointer.new :pointer
+            value = FFI::MemoryPointer.new :pointer
+            size = FFI::MemoryPointer.new :size_t
+            if C::archive_entry_xattr_next(entry, name, value, size) != C::OK
+                return nil
+            else
+                # TODO: someday size.read_size_t could work
+                return [name.null? ? nil : name.read_string,
+                        value.null? ? nil : value.get_string(0,size.read_ulong)]
+            end
         end
 
         def xattr_reset
+            C::archive_entry_xattr_reset(entry)
         end
 
     end
