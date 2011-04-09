@@ -99,6 +99,12 @@ module Archive
         attach_function :archive_entry_copy_link, [:pointer, :string], :string
         attach_function :archive_entry_copy_symlink, [:pointer, :string], :string
         attach_function :archive_entry_copy_sourcepath, [:pointer, :string], :string
+        attach_function :archive_entry_copy_pathname, [:pointer, :string], :string
+        attach_function :archive_entry_xattr_clear, [:pointer], :void
+        attach_function :archive_entry_xattr_add_entry, [:pointer, :string, :string, :size_t], :void
+        attach_function :archive_entry_xattr_count, [:pointer], :int
+        attach_function :archive_entry_xattr_reset, [:pointer], :int
+        attach_function :archive_entry_xattr_next, [:pointer, :pointer, :pointer, :pointer], :int
 
         OK     = 0
         RETRY  = (-10)
