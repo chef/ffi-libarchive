@@ -27,6 +27,79 @@ module Archive
         attach_function :archive_write_open_filename, [:pointer, :string], :int
         attach_function :archive_write_open_memory, [:pointer, :pointer, :size_t, :pointer], :int
 
+        attach_function :archive_entry_atime, [:pointer], :time_t
+        attach_function :archive_entry_atime_nsec, [:pointer, :time_t, :long], :void
+        attach_function :archive_entry_atime_is_set, [:pointer], :int
+        attach_function :archive_entry_set_atime, [:pointer], :int
+        attach_function :archive_entry_unset_atime, [:pointer], :int
+        attach_function :archive_entry_birthtime, [:pointer], :time_t
+        attach_function :archive_entry_birthtime_nsec, [:pointer, :time_t, :long], :void
+        attach_function :archive_entry_birthtime_is_set, [:pointer], :int
+        attach_function :archive_entry_set_birthtime, [:pointer], :int
+        attach_function :archive_entry_unset_birthtime, [:pointer], :int
+        attach_function :archive_entry_ctime, [:pointer], :time_t
+        attach_function :archive_entry_ctime_nsec, [:pointer, :time_t, :long], :void
+        attach_function :archive_entry_ctime_is_set, [:pointer], :int
+        attach_function :archive_entry_set_ctime, [:pointer], :int
+        attach_function :archive_entry_unset_ctime, [:pointer], :int
+        attach_function :archive_entry_mtime, [:pointer], :time_t
+        attach_function :archive_entry_mtime_nsec, [:pointer, :time_t, :long], :void
+        attach_function :archive_entry_mtime_is_set, [:pointer], :int
+        attach_function :archive_entry_set_mtime, [:pointer], :int
+        attach_function :archive_entry_unset_mtime, [:pointer], :int
+        attach_function :archive_entry_dev, [:pointer], :dev_t
+        attach_function :archive_entry_set_dev, [:pointer, :dev_t], :void
+        attach_function :archive_entry_devmajor, [:pointer], :dev_t
+        attach_function :archive_entry_set_devmajor, [:pointer, :dev_t], :void
+        attach_function :archive_entry_devminor, [:pointer], :dev_t
+        attach_function :archive_entry_set_devminor, [:pointer, :dev_t], :void
+        attach_function :archive_entry_filetype, [:pointer], :mode_t
+        attach_function :archive_entry_set_filetype, [:pointer, :mode_t], :void
+        attach_function :archive_entry_fflags, [:pointer, :pointer, :pointer], :void
+        attach_function :archive_entry_set_fflags, [:pointer, :ulong, :ulong], :void
+        attach_function :archive_entry_fflags_text, [:pointer], :string
+        attach_function :archive_entry_gid, [:pointer], :gid_t
+        attach_function :archive_entry_set_gid, [:pointer, :gid_t], :void
+        attach_function :archive_entry_gname, [:pointer], :string
+        attach_function :archive_entry_set_gname, [:pointer, :string], :void
+        attach_function :archive_entry_hardlink, [:pointer], :string
+        attach_function :archive_entry_set_hardlink, [:pointer, :string], :void
+        attach_function :archive_entry_set_link, [:pointer, :string], :void
+        attach_function :archive_entry_ino, [:pointer], :ino_t
+        attach_function :archive_entry_set_ino, [:pointer, :ino_t], :void
+        attach_function :archive_entry_mode, [:pointer], :mode_t
+        attach_function :archive_entry_set_mode, [:pointer, :mode_t], :void
+        attach_function :archive_entry_set_perm, [:pointer, :mode_t], :void
+        attach_function :archive_entry_nlink, [:pointer], :uint
+        attach_function :archive_entry_set_nlink, [:pointer, :uint], :void
+        attach_function :archive_entry_pathname, [:pointer], :string
+        attach_function :archive_entry_set_pathname, [:pointer, :string], :void
+        attach_function :archive_entry_rdev, [:pointer], :dev_t
+        attach_function :archive_entry_set_rdev, [:pointer, :dev_t], :void
+        attach_function :archive_entry_rdevmajor, [:pointer], :dev_t
+        attach_function :archive_entry_set_rdevmajor, [:pointer, :dev_t], :void
+        attach_function :archive_entry_rdevminor, [:pointer], :dev_t
+        attach_function :archive_entry_set_rdevminor, [:pointer, :dev_t], :void
+        attach_function :archive_entry_size, [:pointer], :int64_t
+        attach_function :archive_entry_set_size, [:pointer, :int64_t], :void
+        attach_function :archive_entry_unset_size, [:pointer], :void
+        attach_function :archive_entry_size_is_set, [:pointer], :int
+        attach_function :archive_entry_sourcepath, [:pointer], :string
+        attach_function :archive_entry_strmode, [:pointer], :string
+        attach_function :archive_entry_symlink, [:pointer], :string
+        attach_function :archive_entry_set_symlink, [:pointer, :string], :void
+        attach_function :archive_entry_uid, [:pointer], :uid_t
+        attach_function :archive_entry_set_uid, [:pointer, :uid_t], :void
+        attach_function :archive_entry_uname, [:pointer], :string
+        attach_function :archive_entry_set_uname, [:pointer, :string], :void
+        attach_function :archive_entry_copy_fflags_text, [:pointer, :string], :string
+        attach_function :archive_entry_copy_gname, [:pointer, :string], :string
+        attach_function :archive_entry_copy_uname, [:pointer, :string], :string
+        attach_function :archive_entry_copy_hardlink, [:pointer, :string], :string
+        attach_function :archive_entry_copy_link, [:pointer, :string], :string
+        attach_function :archive_entry_copy_symlink, [:pointer, :string], :string
+        attach_function :archive_entry_copy_sourcepath, [:pointer, :string], :string
+
         OK     = 0
         RETRY  = (-10)
         WARN   = (-20)
@@ -123,8 +196,7 @@ module Archive
             @archive_free = [nil]
             raise Error, @archive unless @archive
 
-            @archive_free[0] = free
-            ObjectSpace.define_finalizer( self, BaseArchive.finalizer(@archive, @archive_free) )
+            ObjectSpace.define_finalizer( self, Reader.finalizer(@archive, @archive_free) )
         end
 
         def self.finalizer archive, archive_free
