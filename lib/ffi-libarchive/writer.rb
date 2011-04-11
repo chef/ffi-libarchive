@@ -62,11 +62,7 @@ module Archive
             if params[:file_name]
                 raise Error, @archive if C::archive_write_open_filename(archive, params[:file_name]) != C::OK
             elsif params[:memory]
-                str = params[:memory]
-                @data = lambda{ |ar, client, buffer, length|
-                    str.concat buffer.get_bytes(0,length)
-                    length
-                }
+                @data = write_callback params[:memory]
                 raise Error, @archive if C::archive_write_open(archive, nil,
                                                                method(:open_callback),
                                                                @data,
@@ -83,6 +79,15 @@ module Archive
             end
             C::OK
         end
+        private :open_callback
+
+        def write_callback data
+            Proc.new { |ar, client, buffer, length|
+                data.concat buffer.get_bytes(0,length)
+                length
+            }
+        end
+        private :write_callback
 
         def new_entry
             entry = Entry.new
