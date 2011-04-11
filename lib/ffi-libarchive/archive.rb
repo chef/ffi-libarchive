@@ -3,6 +3,11 @@ require 'ffi'
 module Archive
 
     module C
+        def self.attach_function_maybe *args
+            attach_function *args
+        rescue FFI::NotFoundError
+        end
+
         extend FFI::Library
         ffi_lib ["archive", "libarchive.so.2"]
 
@@ -33,11 +38,11 @@ module Archive
         attach_function :archive_write_open, [:pointer, :pointer, :archive_open_callback, :archive_write_callback, :archive_close_callback], :int
         # TODO: catch errors if not defined
         attach_function :archive_write_set_compression_none, [:pointer], :int
-        attach_function :archive_write_set_compression_gzip, [:pointer], :int
-        attach_function :archive_write_set_compression_bzip2, [:pointer], :int
-        attach_function :archive_write_set_compression_compress, [:pointer], :int
-        attach_function :archive_write_set_compression_lzma, [:pointer], :int
-        attach_function :archive_write_set_compression_xz, [:pointer], :int
+        attach_function_maybe :archive_write_set_compression_gzip, [:pointer], :int
+        attach_function_maybe :archive_write_set_compression_bzip2, [:pointer], :int
+        attach_function_maybe :archive_write_set_compression_compress, [:pointer], :int
+        attach_function_maybe :archive_write_set_compression_lzma, [:pointer], :int
+        attach_function_maybe :archive_write_set_compression_xz, [:pointer], :int
         attach_function :archive_write_set_compression_program, [:pointer, :string], :int
 
         def self.archive_write_set_compression(archive, compression)
@@ -72,24 +77,24 @@ module Archive
         attach_function :archive_entry_free, [:pointer], :void
         attach_function :archive_entry_atime, [:pointer], :time_t
         attach_function :archive_entry_atime_nsec, [:pointer, :time_t, :long], :void
-        attach_function :archive_entry_atime_is_set, [:pointer], :int
+        attach_function_maybe :archive_entry_atime_is_set, [:pointer], :int
         attach_function :archive_entry_set_atime, [:pointer, :time_t, :long], :int
-        attach_function :archive_entry_unset_atime, [:pointer], :int
-        attach_function :archive_entry_birthtime, [:pointer], :time_t
-        attach_function :archive_entry_birthtime_nsec, [:pointer, :time_t, :long], :void
-        attach_function :archive_entry_birthtime_is_set, [:pointer], :int
-        attach_function :archive_entry_set_birthtime, [:pointer, :time_t, :long], :int
-        attach_function :archive_entry_unset_birthtime, [:pointer], :int
+        attach_function_maybe :archive_entry_unset_atime, [:pointer], :int
+        attach_function_maybe :archive_entry_birthtime, [:pointer], :time_t
+        attach_function_maybe :archive_entry_birthtime_nsec, [:pointer, :time_t, :long], :void
+        attach_function_maybe :archive_entry_birthtime_is_set, [:pointer], :int
+        attach_function_maybe :archive_entry_set_birthtime, [:pointer, :time_t, :long], :int
+        attach_function_maybe :archive_entry_unset_birthtime, [:pointer], :int
         attach_function :archive_entry_ctime, [:pointer], :time_t
         attach_function :archive_entry_ctime_nsec, [:pointer, :time_t, :long], :void
-        attach_function :archive_entry_ctime_is_set, [:pointer], :int
+        attach_function_maybe :archive_entry_ctime_is_set, [:pointer], :int
         attach_function :archive_entry_set_ctime, [:pointer, :time_t, :long], :int
-        attach_function :archive_entry_unset_ctime, [:pointer], :int
+        attach_function_maybe :archive_entry_unset_ctime, [:pointer], :int
         attach_function :archive_entry_mtime, [:pointer], :time_t
         attach_function :archive_entry_mtime_nsec, [:pointer, :time_t, :long], :void
-        attach_function :archive_entry_mtime_is_set, [:pointer], :int
+        attach_function_maybe :archive_entry_mtime_is_set, [:pointer], :int
         attach_function :archive_entry_set_mtime, [:pointer, :time_t, :long], :int
-        attach_function :archive_entry_unset_mtime, [:pointer], :int
+        attach_function_maybe :archive_entry_unset_mtime, [:pointer], :int
         attach_function :archive_entry_dev, [:pointer], :dev_t
         attach_function :archive_entry_set_dev, [:pointer, :dev_t], :void
         attach_function :archive_entry_devmajor, [:pointer], :dev_t
@@ -125,8 +130,8 @@ module Archive
         attach_function :archive_entry_set_rdevminor, [:pointer, :dev_t], :void
         attach_function :archive_entry_size, [:pointer], :int64_t
         attach_function :archive_entry_set_size, [:pointer, :int64_t], :void
-        attach_function :archive_entry_unset_size, [:pointer], :void
-        attach_function :archive_entry_size_is_set, [:pointer], :int
+        attach_function_maybe :archive_entry_unset_size, [:pointer], :void
+        attach_function_maybe :archive_entry_size_is_set, [:pointer], :int
         attach_function :archive_entry_sourcepath, [:pointer], :string
         attach_function :archive_entry_strmode, [:pointer], :string
         attach_function :archive_entry_symlink, [:pointer], :string
