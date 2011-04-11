@@ -84,6 +84,18 @@ module Archive
             end
         end
 
+        def each_entry
+            while entry = next_header
+                yield entry
+            end
+        end
+
+        def each_entry_with_data( size = C::DATA_BUFFER_SIZE )
+            while entry = next_header
+                yield entry, read_data
+            end
+        end
+
         def read_data size = C::DATA_BUFFER_SIZE, &block
             raise ArgumentError, "Buffer size must be > 0" unless size.kind_of?(Integer) and size > 0
 
