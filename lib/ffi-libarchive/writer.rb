@@ -11,8 +11,11 @@ module Archive
         def self.open_filename file_name, compression, format
             if block_given?
                 writer = open_filename file_name, compression, format
-                yield writer
-                writer.close
+                begin
+                    yield writer
+                ensure
+                    writer.close
+                end
             else
                 new :file_name => file_name, :compression => compression, :format => format
             end
@@ -21,8 +24,11 @@ module Archive
         def self.open_memory string, compression, format
             if block_given?
                 writer = open_memory string, compression, format
-                yield writer
-                writer.close
+                begin
+                    yield writer
+                ensure
+                    writer.close
+                end
             else
                 if compression.kind_of? String
                     command = compression
@@ -81,8 +87,11 @@ module Archive
         def new_entry
             entry = Entry.new
             if block_given?
-                result = yield entry
-                entry.close
+                begin
+                    result = yield entry
+                ensure
+                    entry.close
+                end
                 result
             else
                 entry
