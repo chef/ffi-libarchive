@@ -97,7 +97,7 @@ module Archive
         end
 
         def read_data size = C::DATA_BUFFER_SIZE, &block
-            raise ArgumentError, "Buffer size must be > 0" unless size.kind_of?(Integer) and size > 0
+            raise ArgumentError, "Buffer size must be > 0 (was: #{size})" unless size.kind_of?(Integer) and size > 0
 
             data = nil
             unless block
