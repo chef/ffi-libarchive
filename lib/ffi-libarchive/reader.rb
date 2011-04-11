@@ -11,8 +11,11 @@ module Archive
         def self.open_filename file_name, command = nil
             if block_given?
                 reader = open_filename file_name, command
-                yield reader
-                reader.close
+                begin
+                    yield reader
+                ensure
+                    reader.close
+                end
             else
                 new :file_name => file_name, :command => command
             end
@@ -21,8 +24,11 @@ module Archive
         def self.open_memory string, command = nil
             if block_given?
                 reader = open_memory string, command
-                yield reader
-                reader.close
+                begin
+                    yield reader
+                ensure
+                    reader.close
+                end
             else
                 new :memory => string, :command => command
             end
