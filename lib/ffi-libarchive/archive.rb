@@ -67,7 +67,7 @@ module Archive
         end
 
         attach_function :archive_write_set_format, [:pointer, :int], :int
-        attach_function :archive_write_data, [:pointer, :string, :size_t], :ssize_t
+        attach_function :archive_write_data, [:pointer, :pointer, :size_t], :ssize_t
         attach_function :archive_write_header, [:pointer, :pointer], :int
         attach_function :archive_write_finish, [:pointer], :void
         attach_function :archive_write_get_bytes_in_last_block, [:pointer], :int
@@ -149,7 +149,7 @@ module Archive
         attach_function :archive_entry_copy_sourcepath, [:pointer, :string], :string
         attach_function :archive_entry_copy_pathname, [:pointer, :string], :string
         attach_function :archive_entry_xattr_clear, [:pointer], :void
-        attach_function :archive_entry_xattr_add_entry, [:pointer, :string, :string, :size_t], :void
+        attach_function :archive_entry_xattr_add_entry, [:pointer, :string, :pointer, :size_t], :void
         attach_function :archive_entry_xattr_count, [:pointer], :int
         attach_function :archive_entry_xattr_reset, [:pointer], :int
         attach_function :archive_entry_xattr_next, [:pointer, :pointer, :pointer, :pointer], :int
@@ -243,7 +243,7 @@ module Archive
             if archive.kind_of? String
                 super archive
             else
-                super "[#{C::archive_errno(archive)}] #{C::archive_error_string(archive)}"
+                super "#{C::archive_error_string(archive)}"
             end
         end
     end

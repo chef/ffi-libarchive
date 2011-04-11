@@ -16,7 +16,9 @@ class TS_ReadArchive < Test::Unit::TestCase
   ]
 
   def setup
-    @archive_content = File.open('data/test.tar.gz', 'rb').read
+    File.open('data/test.tar.gz', 'rb') do |f|
+      @archive_content = f.read
+    end
   end
 
 
