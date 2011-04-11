@@ -27,11 +27,20 @@ module Archive
             @entry_free = [true]
             if entry
                 @entry = entry
+                yield self if block_given?
             else
                 @entry = C::archive_entry_new
                 raise Error, @entry unless @entry
-                @entry_free[0] = false
-                ObjectSpace.define_finalizer( self, Entry.finalizer(@entry, @entry_free) )
+
+                if block_given?
+                    result = yield self
+                    C::archive_entry_free(@entry)
+                    @entry = nil
+                    return result
+                else
+                    @entry_free[0] = false
+                    ObjectSpace.define_finalizer( self, Entry.finalizer(@entry, @entry_free) )
+                end
             end
         end
 
