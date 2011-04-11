@@ -103,6 +103,17 @@ module Archive
             end
         end
 
+        def add_entry &block
+            raise ArgumentError, "No block given" unless block_given?
+
+            entry = Entry.new
+            data = yield entry
+            write_header entry
+            write_data data if data
+        ensure
+            entry.close
+        end
+
         def write_data *args
             if block_given?
                 raise ArgumentError, "wrong number of argument (#{args.size} for 0)" if args.size > 0
