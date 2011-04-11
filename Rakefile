@@ -9,10 +9,10 @@ task :default => 'test:run'
 task 'gem:release' => 'test:run'
 
 Bones {
-    name       'ffi-libarchive-ruby'
+    name       'ffi-libarchive'
     authors    'Frank Fischer'
     email      'frank.fischer@mathematik.tu-chemnitz.de'
-    url        'http://patch-tag.com/r/lyro/ffi-libarchive-ruby/wiki'
+    url        'http://darcsden.com/lyro/ffi-libarchive'
     depend_on  'ffi', '~> 1.0.0'
 }
 

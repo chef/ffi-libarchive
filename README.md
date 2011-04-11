@@ -1,44 +1,54 @@
-ffi-libarchive-ruby
-===========
+ffi-libarchive
+==============
 
-FIXME (describe your package)
+An ffi binding to libarchive.
+
+This library provides ruby-bindings to the well-known
+[libarchive](http://code.google.com/p/libarchive/) library. It should be interface-compatible to libarchive-ruby and libarchive-ruby-swig gems.
+
+Why another binding? Because I often work on workstations without
+development libraries of libarchive installed. An FFI-based gem allows
+to use the library without the hassle of compiling native extensions.
+
+Note that this is not completely true for this library. Two methods,
+``Entry::copy_stat`` and ``Entry::copy_lstat`` require a small native
+extension through ``ffi-inliner``, though this does not require
+development files of libarchive but only of libc.
 
 Features
 --------
 
-* FIXME (list of features and unsolved problems)
+* Compatible interface to libarchive-ruby Entry::copy_lstat and
+* Entry::copy_stat require ffi-inliner because of the platform
+  dependence of stat() and lstat() functions of libc
 
 Examples
 --------
 
-    FIXME (code sample of usage)
+require 'ffi-libarchive'
 
 Requirements
 ------------
 
-* FIXME (list of requirements)
+* ``ffi`` >= 1.0.0
+* ``ffi-inliner`` for ``Entry::copy_lstat`` and ``Entry::copy_stat``
 
 Install
 -------
 
-* FIXME (sudo gem install, anything else)
+* gem install ffi-libarchive
 
 Author
 ------
 
-Original author: FIXME (author's name)
-
-Contributors:
-
-* FIXME (contributor 1?)
-* FIXME (contributor 2?)
+Original author: Frank Fischer
 
 License
 -------
 
-(The MIT License) FIXME (different license?)
+(The MIT License)
 
-Copyright (c) 2011 FIXME (author's name)
+Copyright (c) 2011 Frank Fischer
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

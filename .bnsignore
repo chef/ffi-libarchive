@@ -12,7 +12,9 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
+_darcs
 announcement.txt
 coverage
 doc
 pkg
+*.rbc
