@@ -276,6 +276,7 @@ module Archive
         ensure
             @archive = nil
             @archive_free[0] = nil
+            @data = nil
         end
 
         def archive
