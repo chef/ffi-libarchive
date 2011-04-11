@@ -176,9 +176,19 @@ module Archive
             nil
         end
 
-        def copy_lstat file_name
-            # TODO implement this
-            raise "copy_lstat can currently not be implemented because lstat is magically defined in libc"
+        def copy_lstat filename
+            # TODO get this work without ffi-inliner
+            begin
+                require File.join(File.dirname(__FILE__), 'stat.rb')
+            rescue => e
+                raise "ffi-inliner build for copy_stat failed:\n#{e}"
+            end
+
+            stat = Archive::Stat::ffi_libarchive_create_lstat(filename)
+            raise Error, "Copy stat failed: #{LibC::strerror(LibC::errno)}" if stat.null?
+            result = C::archive_entry_copy_stat(entry, stat)
+        ensure
+            Archive::Stat::ffi_libarchive_free_stat(stat)
         end
 
         def copy_pathname file_name
@@ -192,8 +202,18 @@ module Archive
         end
 
         def copy_stat filename
-            # TODO implement this
-            raise "copy_stat can currently not be implemented because stat is magically defined in libc"
+            # TODO get this work without ffi-inliner
+            begin
+                require File.join(File.dirname(__FILE__), 'stat.rb')
+            rescue => e
+                raise "ffi-inliner build for copy_stat failed:\n#{e}"
+            end
+
+            stat = Archive::Stat::ffi_libarchive_create_stat(filename)
+            raise Error, "Copy stat failed: #{LibC::strerror(LibC::errno)}" if stat.null?
+            result = C::archive_entry_copy_stat(entry, stat)
+        ensure
+            Archive::Stat::ffi_libarchive_free_stat(stat)
         end
 
         def copy_symlink slnk
