@@ -56,5 +56,9 @@ module Archive
 
 end  # module Archive
 
-Archive.require_all_libs_relative_to(__FILE__)
+require File.join(Archive::LIBPATH, "ffi-libarchive", "archive")
+require File.join(Archive::LIBPATH, "ffi-libarchive", "reader")
+require File.join(Archive::LIBPATH, "ffi-libarchive", "writer")
+require File.join(Archive::LIBPATH, "ffi-libarchive", "entry")
+
 

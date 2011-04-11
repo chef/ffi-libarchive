@@ -12,7 +12,7 @@ module Archive
 
     module C
         def self.attach_function_maybe *args
-            attach_function *args
+            attach_function(*args)
         rescue FFI::NotFoundError
         end
 

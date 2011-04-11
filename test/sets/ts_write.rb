@@ -44,16 +44,6 @@ class TS_WriteArchive < Test::Unit::TestCase
         end
     end
 
-    def test_end_to_end_write_read_tar_gz
-        Dir.mktmpdir do |dir|
-            Archive.write_open_filename(dir + '/test.tar.gz', :gzip, :tar) do |ar|
-                write_content(ar)
-            end
-
-            verify_content(dir + '/test.tar.gz')
-        end
-    end
-
     private
 
     def write_content(ar)
