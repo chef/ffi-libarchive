@@ -2,6 +2,14 @@ require 'ffi'
 
 module Archive
 
+    module LibC
+        extend FFI::Library
+        ffi_lib FFI::Library::LIBC
+
+        attach_variable :errno, :int
+        attach_function :strerror, [:int], :string
+    end
+
     module C
         def self.attach_function_maybe *args
             attach_function *args
@@ -140,6 +148,7 @@ module Archive
         attach_function :archive_entry_set_uid, [:pointer, :uid_t], :void
         attach_function :archive_entry_uname, [:pointer], :string
         attach_function :archive_entry_set_uname, [:pointer, :string], :void
+        attach_function :archive_entry_copy_stat, [:pointer, :pointer], :void
         attach_function :archive_entry_copy_fflags_text, [:pointer, :string], :string
         attach_function :archive_entry_copy_gname, [:pointer, :string], :string
         attach_function :archive_entry_copy_uname, [:pointer, :string], :string
