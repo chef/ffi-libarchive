@@ -45,33 +45,25 @@ module Archive
                 raise Error, @archive if C::archive_write_open_filename(archive, params[:file_name]) != C::OK
             elsif params[:memory]
                 str = params[:memory]
-                @data = FFI::MemoryPointer.new :pointer
-                raise Error, @archive if C::archive_write_open(archive, @data, OpenCallback, CloseCallback, WriteCallback) != C::OK
+                @data = lambda{ |ar, client, buffer, length|
+                    str.concat buffer.get_bytes(0,length)
+                    length
+                }
+                raise Error, @archive if C::archive_write_open(archive, nil,
+                                                               method(:open_callback),
+                                                               @data,
+                                                               nil) != C::OK
             end
         rescue => e
-            puts "AAA #{e}"
             close
             raise
         end
 
-        OpenCallback = Proc.new do |archive, client|
-            puts "open"
+        def open_callback archive, client
             if C::archive_write_get_bytes_in_last_block(archive) == -1
                 C::archive_write_set_bytes_in_last_block(archive, 1)
             end
-
             C::OK
-        end
-
-        CloseCallback = Proc.new do |archive, client|
-            puts "close"
-            C::OK
-        end
-
-        WriteCallback = Proc.new do |archive, client, buffer, length|
-            puts "write"
-            buffer.concat client.get_string(0,length)
-            length
         end
 
         def new_entry
