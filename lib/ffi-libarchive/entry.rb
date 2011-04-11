@@ -246,6 +246,9 @@ module Archive
         end
 
         def filetype= type
+            if type.kind_of? Symbol
+                type = Entry.const_get type.to_s.upcase.intern
+            end
             C::archive_entry_set_filetype(entry, type)
         end
 
