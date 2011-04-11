@@ -1,9 +1,5 @@
 module Archive
 
-    # TODO: Remove this forward-declaration
-    class BaseArchive
-    end
-
     class Writer < BaseArchive
 
         private_class_method :new

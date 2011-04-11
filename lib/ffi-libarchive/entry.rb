@@ -179,7 +179,7 @@ module Archive
         def copy_lstat filename
             # TODO get this work without ffi-inliner
             begin
-                require File.join(File.dirname(__FILE__), 'stat.rb')
+                require File.join(Archive::LIBPATH, "ffi-libarchive", "stat")
             rescue => e
                 raise "ffi-inliner build for copy_stat failed:\n#{e}"
             end
@@ -204,7 +204,7 @@ module Archive
         def copy_stat filename
             # TODO get this work without ffi-inliner
             begin
-                require File.join(File.dirname(__FILE__), 'stat.rb')
+                require File.join(Archive::LIBPATH, "ffi-libarchive", "stat")
             rescue => e
                 raise "ffi-inliner build for copy_stat failed:\n#{e}"
             end
