@@ -27,6 +27,14 @@ class TS_WriteArchive < Test::Unit::TestCase
         end
     end
 
+    def test_end_to_end_write_read_memory
+        memory = ""
+        Archive.write_open_memory(memory, Archive::COMPRESSION_GZIP, Archive::FORMAT_TAR) do |ar|
+            write_content ar
+        end
+        verify_content_memory(memory)
+    end
+
     def test_end_to_end_write_read_tar_gz_with_external_gzip
         Dir.mktmpdir do |dir|
             Archive.write_open_filename(dir + '/test.tar.gz', 'gzip',
@@ -74,6 +82,30 @@ class TS_WriteArchive < Test::Unit::TestCase
             end
 
             content_spec_idx += 1
+        end
+    end
+
+    def verify_content_memory(memory)
+        Archive.read_open_memory(memory) do |ar|
+            content_spec_idx = 0
+
+            while entry = ar.next_header
+                expect_pathname, expect_type, expect_mode, expect_content =\
+                CONTENT_SPEC[content_spec_idx]
+
+                assert_equal expect_pathname, entry.pathname
+                assert_equal entry.send("#{expect_type}?"), true
+                assert_equal expect_mode, (entry.mode & 07777)
+
+                if entry.symbolic_link?
+                    assert_equal expect_content, entry.symlink
+                elsif entry.file?
+                    content = ar.read_data(1024)
+                    assert_equal expect_content, content
+                end
+
+                content_spec_idx += 1
+            end
         end
     end
 
