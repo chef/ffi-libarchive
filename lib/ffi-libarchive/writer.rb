@@ -37,9 +37,21 @@ module Archive
         def initialize params = {}
             super C::method(:archive_write_new), C::method(:archive_write_finish)
 
-            raise Error, @archive if C::archive_write_set_compression(archive, params[:compression]) != C::OK
+            compression = params[:compression]
+            case compression
+            when Symbol
+                compression = Archive::const_get("COMPRESSION_#{compression.to_s.upcase}".intern)
+            end
 
-            raise Error, @archive if C::archive_write_set_format(archive, params[:format]) != C::OK
+            format = params[:format]
+            case format
+            when Symbol
+                format = Archive::const_get("FORMAT_#{format.to_s.upcase}".intern)
+            end
+
+            raise Error, @archive if C::archive_write_set_compression(archive, compression) != C::OK
+
+            raise Error, @archive if C::archive_write_set_format(archive, format) != C::OK
 
             if params[:file_name]
                 raise Error, @archive if C::archive_write_open_filename(archive, params[:file_name]) != C::OK
