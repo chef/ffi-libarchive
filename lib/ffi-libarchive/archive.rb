@@ -43,7 +43,9 @@ module Archive
         callback :archive_open_callback, [:pointer, :pointer], :int
         callback :archive_write_callback, [:pointer, :pointer, :pointer, :size_t], :int
         callback :archive_close_callback, [:pointer, :pointer], :int
-        attach_function :archive_write_open, [:pointer, :pointer, :archive_open_callback, :archive_write_callback, :archive_close_callback], :int
+        # TODO: the following function is the real definition but uses multiple callbacks. This implies that it will not work with Rubinius (currently), but luckily we only need the write-callback actually.
+        #attach_function :archive_write_open, [:pointer, :pointer, :archive_open_callback, :archive_write_callback, :archive_close_callback], :int
+        attach_function :archive_write_open, [:pointer, :pointer, :pointer, :archive_write_callback, :pointer], :int
         # TODO: catch errors if not defined
         attach_function :archive_write_set_compression_none, [:pointer], :int
         attach_function_maybe :archive_write_set_compression_gzip, [:pointer], :int
