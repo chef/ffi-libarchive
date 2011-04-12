@@ -58,9 +58,12 @@ module Archive
             if params[:file_name]
                 raise Error, @archive if C::archive_write_open_filename(archive, params[:file_name]) != C::OK
             elsif params[:memory]
+                if C::archive_write_get_bytes_in_last_block(@archive) == -1
+                    C::archive_write_set_bytes_in_last_block(archive, 1)
+                end
                 @data = write_callback params[:memory]
                 raise Error, @archive if C::archive_write_open(archive, nil,
-                                                               method(:open_callback),
+                                                               nil,
                                                                @data,
                                                                nil) != C::OK
             end
@@ -68,14 +71,6 @@ module Archive
             close
             raise
         end
-
-        def open_callback archive, client
-            if C::archive_write_get_bytes_in_last_block(archive) == -1
-                C::archive_write_set_bytes_in_last_block(archive, 1)
-            end
-            C::OK
-        end
-        private :open_callback
 
         def write_callback data
             Proc.new { |ar, client, buffer, length|
