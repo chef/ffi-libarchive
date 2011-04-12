@@ -185,7 +185,7 @@ module Archive
             end
 
             stat = Archive::Stat::ffi_libarchive_create_lstat(filename)
-            raise Error, "Copy stat failed: #{LibC::strerror(LibC::errno)}" if stat.null?
+            raise Error, "Copy stat failed: #{Archive::Stat::ffi_error}" if stat.null?
             result = C::archive_entry_copy_stat(entry, stat)
         ensure
             Archive::Stat::ffi_libarchive_free_stat(stat)
@@ -210,7 +210,7 @@ module Archive
             end
 
             stat = Archive::Stat::ffi_libarchive_create_stat(filename)
-            raise Error, "Copy stat failed: #{LibC::strerror(LibC::errno)}" if stat.null?
+            raise Error, "Copy stat failed: #{Archive::Stat::ffi_error}" if stat.null?
             result = C::archive_entry_copy_stat(entry, stat)
         ensure
             Archive::Stat::ffi_libarchive_free_stat(stat)
