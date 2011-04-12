@@ -104,8 +104,14 @@ module Archive
 
             entry = Entry.new
             data = yield entry
-            write_header entry
-            write_data data if data
+            if data
+                entry.size = data.size
+                write_header entry
+                write_data data
+            else
+                write_header entry
+            end
+            nil
         ensure
             entry.close
         end
