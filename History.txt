@@ -1,3 +1,7 @@
+== 0.1.2 / 2011-04-12
+* Writer::add_entry sets content size
+* Modify usage of callbacks and FFI::Buffer to work with rubinius
+
 == 0.1.1 / 2011-04-11
 * Fix loading of library
 
