@@ -46,9 +46,9 @@ module Archive
                 raise Error, @archive if C::archive_read_open_filename(archive, params[:file_name], 1024) != C::OK
             elsif params[:memory]
                 str = params[:memory]
-                @data = FFI::MemoryPointer.new str.size
-                @data.put_bytes 0, str
-                raise Error, @archive if C::archive_read_open_memory(archive, @data, @data.size) != C::OK
+                @data = FFI::MemoryPointer.new(str.size + 1)
+                @data.write_string str, str.size
+                raise Error, @archive if C::archive_read_open_memory(archive, @data, str.size) != C::OK
             end
         rescue
             close
@@ -101,7 +101,7 @@ module Archive
                 block = data.method :concat
             end
 
-            buffer = FFI::Buffer.alloc_out(size)
+            buffer = FFI::MemoryPointer.new(size)
             len = 0
             while (n = C::archive_read_data(archive, buffer, size)) > 0
                 case n

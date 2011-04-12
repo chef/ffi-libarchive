@@ -2,14 +2,6 @@ require 'ffi'
 
 module Archive
 
-    module LibC
-        extend FFI::Library
-        ffi_lib FFI::Library::LIBC
-
-        attach_variable :errno, :int
-        attach_function :strerror, [:int], :string
-    end
-
     module C
         def self.attach_function_maybe *args
             attach_function(*args)
