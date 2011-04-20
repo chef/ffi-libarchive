@@ -46,9 +46,9 @@ module Archive
                 raise Error, @archive if C::archive_read_open_filename(archive, params[:file_name], 1024) != C::OK
             elsif params[:memory]
                 str = params[:memory]
-                @data = FFI::MemoryPointer.new(str.size + 1)
-                @data.write_string str, str.size
-                raise Error, @archive if C::archive_read_open_memory(archive, @data, str.size) != C::OK
+                @data = FFI::MemoryPointer.new(str.bytesize + 1)
+                @data.write_string str, str.bytesize
+                raise Error, @archive if C::archive_read_open_memory(archive, @data, str.bytesize) != C::OK
             end
         rescue
             close

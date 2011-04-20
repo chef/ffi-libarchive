@@ -100,7 +100,7 @@ module Archive
             entry = Entry.new
             data = yield entry
             if data
-                entry.size = data.size
+                entry.size = data.bytesize
                 write_header entry
                 write_data data
             else
@@ -119,7 +119,7 @@ module Archive
                 len = 0
                 while true do
                     str = yield
-                    if ((n = C::archive_write_data(ar, str, str.size)) < 1)
+                    if ((n = C::archive_write_data(ar, str, str.bytesize)) < 1)
                         return len
                     end
                     len += n
@@ -127,7 +127,7 @@ module Archive
             else
                 raise ArgumentError, "wrong number of argument (#{args.size}) for 1)" if args.size != 1
                 str = args[0]
-                C::archive_write_data(archive, str, str.size)
+                C::archive_write_data(archive, str, str.bytesize)
             end
         end
 
