@@ -36,7 +36,7 @@ EOS
   s.rdoc_options      = %w(--main README.md)
 
   # Add any extra files to include in the gem
-  s.files             = %w(LICENSE version.txt History.txt README.md) + Dir.glob("{bin,test,lib}/**/*")
+  s.files             = %w(Rakefile LICENSE version.txt History.txt README.md) + Dir.glob("{bin,test,lib}/**/*")
   s.executables       = FileList["bin/**"].map { |f| File.basename(f) }
   s.require_paths     = ["lib"]
 
