@@ -21,7 +21,7 @@ spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
   s.name              = "ffi-libarchive"
-  s.version           = "0.1.4"
+  s.version           = File.read(File.join(File.dirname(__FILE__), 'version.txt'))
   s.summary           = "A pure FFI binding to libarchive"
   s.author            = "Frank Fischer"
   s.email             = "frank-fischer@shadow-soft.de"
