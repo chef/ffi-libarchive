@@ -26,20 +26,24 @@ spec = Gem::Specification.new do |s|
   s.author            = "Frank Fischer"
   s.email             = "frank-fischer@shadow-soft.de"
   s.homepage          = "http://bitbucket.org/lyro/ffi-libarchive"
+  s.license           = "GPL-3"
+  s.description       = <<-EOS
+This is a (almost) pure ffi binding to libarchive.
+EOS
 
   s.has_rdoc          = true
   s.extra_rdoc_files  = %w(README.md)
   s.rdoc_options      = %w(--main README.md)
 
   # Add any extra files to include in the gem
-  s.files             = %w(version.txt History.txt README.md) + Dir.glob("{bin,test,lib}/**/*")
+  s.files             = %w(LICENSE version.txt History.txt README.md) + Dir.glob("{bin,test,lib}/**/*")
   s.executables       = FileList["bin/**"].map { |f| File.basename(f) }
   s.require_paths     = ["lib"]
 
   # If you want to depend on other gems, add them here, along with any
   # relevant versions
   s.add_dependency("ffi", "~> 1.0")
-  s.add_dependency("ffi-inliner", "~> 0.2.4")
+  s.add_dependency("ffi-inliner", "~> 0.2")
 
   # If your tests use any gems, include them here
   # s.add_development_dependency("mocha") # for example
