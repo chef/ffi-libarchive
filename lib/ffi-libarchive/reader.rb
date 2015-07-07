@@ -57,10 +57,10 @@ module Archive
 
     def extract entry, flags = 0
       raise ArgumentError, "Expected Archive::Entry as first argument" unless entry.kind_of? Entry
-      raise ArgumentError, "Expected Integer as second argument" unless entry.kind_of? Integer
+      raise ArgumentError, "Expected Integer as second argument" unless flags.kind_of? Integer
 
-      flags &= EXTRACT_FLAGS
-      raise Error, @archive if C::archive_read_extract(archive, entry, flags) != C::OK
+      flags &= EXTRACT_FFLAGS
+      raise Error, @archive if C::archive_read_extract(archive, entry.entry, flags) != C::OK
     end
 
     def header_position
