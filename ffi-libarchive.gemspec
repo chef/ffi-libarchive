@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.license = 'GPL 3.0'
 
   s.files = `git ls-files`.split($/)
-  s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files = s.files.grep(%r{^(test)/})
   s.require_paths = %w{lib}
   s.required_ruby_version = '>= 1.9'
