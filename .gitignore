@@ -4,6 +4,7 @@ _site
 .ruby-version
 .node-version
 Gemfile.lock
+pkg/
 
 # Numerous always-ignore extensions
 *.diff
