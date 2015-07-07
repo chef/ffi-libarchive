@@ -1,10 +1,7 @@
-
 module Archive
-
   # :stopdoc:
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
   PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
-  VERSION = ::File.read(PATH + 'version.txt').strip
   # :startdoc:
 
   # Returns the library path for the module. If any arguments are given,
@@ -60,5 +57,3 @@ require File.join(Archive::LIBPATH, "ffi-libarchive", "archive")
 require File.join(Archive::LIBPATH, "ffi-libarchive", "reader")
 require File.join(Archive::LIBPATH, "ffi-libarchive", "writer")
 require File.join(Archive::LIBPATH, "ffi-libarchive", "entry")
-
-
