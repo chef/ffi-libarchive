@@ -22,6 +22,7 @@ module Archive
     attach_function :archive_read_support_compression_program, [:pointer, :string], :int
     attach_function :archive_read_support_compression_all, [:pointer], :int
     attach_function :archive_read_support_format_all, [:pointer], :int
+    attach_function :archive_read_support_format_raw, [:pointer], :int
     # TODO: this function has been renamed to :archive_read_free in libarchive 3.0
     attach_function :archive_read_finish, [:pointer], :int
     attach_function :archive_read_extract, [:pointer, :pointer, :int], :int
