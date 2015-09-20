@@ -41,6 +41,7 @@ module Archive
       end
 
       raise Error, @archive if C::archive_read_support_format_all(archive) != C::OK
+      raise Error, @archive if C::archive_read_support_format_raw(archive) != C::OK
 
       if params[:file_name]
         raise Error, @archive if C::archive_read_open_filename(archive, params[:file_name], 1024) != C::OK
