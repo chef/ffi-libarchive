@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/johnbellone/ffi-libarchive'
   s.license = 'GPL 3.0'
 
-  s.files = `git ls-files`.split($/)
+  s.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   s.test_files = s.files.grep(%r{^(test)/})
   s.require_paths = %w{lib}
   s.required_ruby_version = '>= 1.9'

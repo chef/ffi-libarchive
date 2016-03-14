@@ -2,7 +2,7 @@ require 'ffi'
 
 module Archive
   module C
-    def self.attach_function_maybe *args
+    def self.attach_function_maybe(*args)
       attach_function(*args)
     rescue FFI::NotFoundError # rubocop:disable Lint/HandleExceptions
     end
@@ -197,10 +197,10 @@ module Archive
 
     EOF    = 1
     OK     = 0
-    RETRY  = (-10)
-    WARN   = (-20)
-    FAILED = (-25)
-    FATAL  = (-30)
+    RETRY  = -10
+    WARN   = -20
+    FAILED = -25
+    FATAL  = -30
 
     DATA_BUFFER_SIZE = 2**16
   end
@@ -251,62 +251,61 @@ module Archive
   FORMAT_7ZIP                = 0xE0000
   FORMAT_WARC                = 0xF0000
 
-  EXTRACT_OWNER              = (0x0001)
-  EXTRACT_PERM               = (0x0002)
-  EXTRACT_TIME               = (0x0004)
-  EXTRACT_NO_OVERWRITE       = (0x0008)
-  EXTRACT_UNLINK             = (0x0010)
-  EXTRACT_ACL                = (0x0020)
-  EXTRACT_FFLAGS             = (0x0040)
-  EXTRACT_XATTR              = (0x0080)
-  EXTRACT_SECURE_SYMLINKS    = (0x0100)
-  EXTRACT_SECURE_NODOTDOT    = (0x0200)
-  EXTRACT_NO_AUTODIR         = (0x0400)
-  EXTRACT_NO_OVERWRITE_NEWER = (0x0800)
-  EXTRACT_SPARSE             = (0x1000)
-  EXTRACT_MAC_METADATA       = (0x2000)
-  EXTRACT_NO_HFS_COMPRESSION = (0x4000)
-  EXTRACT_HFS_COMPRESSION_FORCED = (0x8000)
-  EXTRACT_SECURE_NOABSOLUTEPATHS = (0x10000)
-  EXTRACT_CLEAR_NOCHANGE_FFLAGS = (0x20000)
+  EXTRACT_OWNER              = 0x0001
+  EXTRACT_PERM               = 0x0002
+  EXTRACT_TIME               = 0x0004
+  EXTRACT_NO_OVERWRITE       = 0x0008
+  EXTRACT_UNLINK             = 0x0010
+  EXTRACT_ACL                = 0x0020
+  EXTRACT_FFLAGS             = 0x0040
+  EXTRACT_XATTR              = 0x0080
+  EXTRACT_SECURE_SYMLINKS    = 0x0100
+  EXTRACT_SECURE_NODOTDOT    = 0x0200
+  EXTRACT_NO_AUTODIR         = 0x0400
+  EXTRACT_NO_OVERWRITE_NEWER = 0x0800
+  EXTRACT_SPARSE             = 0x1000
+  EXTRACT_MAC_METADATA       = 0x2000
+  EXTRACT_NO_HFS_COMPRESSION = 0x4000
+  EXTRACT_HFS_COMPRESSION_FORCED = 0x8000
+  EXTRACT_SECURE_NOABSOLUTEPATHS = 0x10000
+  EXTRACT_CLEAR_NOCHANGE_FFLAGS = 0x20000
 
-  def self.read_open_filename file_name, command = nil, &block
+  def self.read_open_filename(file_name, command = nil, &block)
     Reader.open_filename file_name, command, &block
   end
 
-  def self.read_open_memory string, command = nil, &block
+  def self.read_open_memory(string, command = nil, &block)
     Reader.open_memory string, command, &block
   end
 
-  def self.write_open_filename file_name, compression, format, &block
+  def self.write_open_filename(file_name, compression, format, &block)
     Writer.open_filename file_name, compression, format, &block
   end
 
-  def self.write_open_memory string, compression, format, &block
+  def self.write_open_memory(string, compression, format, &block)
     Writer.open_memory string, compression, format, &block
   end
 
   def self.version_number
-    C::archive_version_number
+    C.archive_version_number
   end
 
   def self.version_string
-    C::archive_version_string
+    C.archive_version_string
   end
 
   class Error < StandardError
     def initialize(archive)
-      if archive.kind_of? String
+      if archive.is_a? String
         super archive
       else
-        super "#{C::archive_error_string(archive)}"
+        super C.archive_error_string(archive).to_s
       end
     end
   end
 
   class BaseArchive
-
-    def initialize alloc, free
+    def initialize(alloc, free)
       @archive = nil
       @archive_free = nil
       @archive = alloc.call
@@ -314,11 +313,11 @@ module Archive
       raise Error, @archive unless @archive
 
       @archive_free[0] = free
-      ObjectSpace.define_finalizer( self, BaseArchive.finalizer(@archive, @archive_free) )
+      ObjectSpace.define_finalizer(self, BaseArchive.finalizer(@archive, @archive_free))
     end
 
-    def self.finalizer archive, archive_free
-      Proc.new do |*args|
+    def self.finalizer(archive, archive_free)
+      proc do |*_args|
         archive_free[0].call(archive) if archive_free[0]
       end
     end
@@ -336,18 +335,17 @@ module Archive
     end
 
     def archive
-      raise Error, "No archive open" unless @archive
+      raise Error, 'No archive open' unless @archive
       @archive
     end
     protected :archive
 
     def error_string
-      C::archive_error_string(@archive)
+      C.archive_error_string(@archive)
     end
 
     def errno
-      C::archive_errno(@archive)
+      C.archive_errno(@archive)
     end
   end
-
 end
