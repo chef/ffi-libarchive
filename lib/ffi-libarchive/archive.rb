@@ -1,15 +1,14 @@
 require 'ffi'
 
 module Archive
-
   module C
     def self.attach_function_maybe *args
       attach_function(*args)
-    rescue FFI::NotFoundError
+    rescue FFI::NotFoundError # rubocop:disable Lint/HandleExceptions
     end
 
     extend FFI::Library
-    ffi_lib ["archive", "libarchive.so.2"]
+    ffi_lib ['archive', 'libarchive.so']
 
     attach_function :archive_version_number, [], :int
     attach_function :archive_version_string, [], :string
@@ -21,8 +20,49 @@ module Archive
     attach_function :archive_read_open_memory, [:pointer, :pointer, :size_t], :int
     attach_function :archive_read_support_compression_program, [:pointer, :string], :int
     attach_function :archive_read_support_compression_all, [:pointer], :int
-    attach_function :archive_read_support_format_all, [:pointer], :int
-    # TODO: this function has been renamed to :archive_read_free in libarchive 3.0
+
+    attach_function_maybe :archive_read_set_format, [:pointer, :int], :int
+    attach_function_maybe :archive_read_append_filter, [:pointer, :int], :int
+    attach_function_maybe :archive_read_append_filter_program, [:pointer, :pointer], :int
+    attach_function_maybe :archive_read_append_filter_program_signature, [:pointer, :string, :pointer, :size_t], :int
+
+    attach_function_maybe :archive_read_support_filter_all, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_bzip2, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_compress, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_gzip, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_grzip, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_lrzip, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_lz4, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_lzip, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_lzma, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_lzop, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_none, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_program, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_program_signature, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_rpm, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_uu, [:pointer], :int
+    attach_function_maybe :archive_read_support_filter_xz, [:pointer], :int
+
+    attach_function_maybe :archive_read_support_format_all, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_7zip, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_ar, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_by_code, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_cab, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_cpio, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_empty, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_gnutar, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_iso9660, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_lha, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_mtree, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_rar, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_raw, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_tar, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_warc, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_xar, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_zip, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_zip_streamable, [:pointer], :int
+    attach_function_maybe :archive_read_support_format_zip_seekable, [:pointer], :int
+
     attach_function :archive_read_finish, [:pointer], :int
     attach_function :archive_read_extract, [:pointer, :pointer, :int], :int
     attach_function :archive_read_header_position, [:pointer], :int
@@ -35,13 +75,11 @@ module Archive
     callback :archive_open_callback, [:pointer, :pointer], :int
     callback :archive_write_callback, [:pointer, :pointer, :pointer, :size_t], :int
     callback :archive_close_callback, [:pointer, :pointer], :int
-    # TODO: the following function is the real definition but uses multiple callbacks. This implies that it will not work with Rubinius (currently), but luckily we only need the write-callback actually.
-    #attach_function :archive_write_open, [:pointer, :pointer, :archive_open_callback, :archive_write_callback, :archive_close_callback], :int
     attach_function :archive_write_open, [:pointer, :pointer, :pointer, :archive_write_callback, :pointer], :int
-    # TODO: catch errors if not defined
     attach_function :archive_write_set_compression_none, [:pointer], :int
     attach_function_maybe :archive_write_set_compression_gzip, [:pointer], :int
     attach_function_maybe :archive_write_set_compression_bzip2, [:pointer], :int
+    attach_function_maybe :archive_write_set_compression_deflate, [:pointer], :int
     attach_function_maybe :archive_write_set_compression_compress, [:pointer], :int
     attach_function_maybe :archive_write_set_compression_lzma, [:pointer], :int
     attach_function_maybe :archive_write_set_compression_xz, [:pointer], :int
@@ -176,6 +214,11 @@ module Archive
   COMPRESSION_XZ       = 6
   COMPRESSION_UU       = 7
   COMPRESSION_RPM      = 8
+  COMPRESSION_LZIP     = 9
+  COMPRESSION_LRZIP    = 10
+  COMPRESSION_LZOP     = 11
+  COMPRESSION_GRZIP    = 12
+  COMPRESSION_LZ4      = 13
 
   FORMAT_BASE_MASK           = 0xff0000
   FORMAT_CPIO                = 0x10000
@@ -202,6 +245,11 @@ module Archive
   FORMAT_MTREE               = 0x80000
   FORMAT_RAW                 = 0x90000
   FORMAT_XAR                 = 0xA0000
+  FORMAT_LHA                 = 0xB0000
+  FORMAT_CAB                 = 0xC0000
+  FORMAT_RAR                 = 0xD0000
+  FORMAT_7ZIP                = 0xE0000
+  FORMAT_WARC                = 0xF0000
 
   EXTRACT_OWNER              = (0x0001)
   EXTRACT_PERM               = (0x0002)
@@ -216,6 +264,11 @@ module Archive
   EXTRACT_NO_AUTODIR         = (0x0400)
   EXTRACT_NO_OVERWRITE_NEWER = (0x0800)
   EXTRACT_SPARSE             = (0x1000)
+  EXTRACT_MAC_METADATA       = (0x2000)
+  EXTRACT_NO_HFS_COMPRESSION = (0x4000)
+  EXTRACT_HFS_COMPRESSION_FORCED = (0x8000)
+  EXTRACT_SECURE_NOABSOLUTEPATHS = (0x10000)
+  EXTRACT_CLEAR_NOCHANGE_FFLAGS = (0x20000)
 
   def self.read_open_filename file_name, command = nil, &block
     Reader.open_filename file_name, command, &block
