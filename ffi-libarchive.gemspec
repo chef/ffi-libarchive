@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = 'A Ruby FFI binding to libarchive.'
   s.summary = s.description
   s.homepage = 'https://github.com/johnbellone/ffi-libarchive'
-  s.license = 'GPL 3.0'
+  s.license = "Apache-2.0"
 
   s.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   s.test_files = s.files.grep(%r{^(test)/})
