@@ -44,15 +44,15 @@ module Archive
   # the _filename_ does not have to be equivalent to the directory.
   #
   def self.require_all_libs_relative_to(fname, dir = nil)
-    dir ||= ::File.basename(fname, '.*')
+    dir ||= ::File.basename(fname, ".*")
     search_me = ::File.expand_path(
-      ::File.join(::File.dirname(fname), dir, '**', '*.rb'))
+      ::File.join(::File.dirname(fname), dir, "**", "*.rb"))
 
     Dir.glob(search_me).sort.each { |rb| require rb }
   end
 end # module Archive
 
-require File.join(Archive::LIBPATH, 'ffi-libarchive', 'archive')
-require File.join(Archive::LIBPATH, 'ffi-libarchive', 'reader')
-require File.join(Archive::LIBPATH, 'ffi-libarchive', 'writer')
-require File.join(Archive::LIBPATH, 'ffi-libarchive', 'entry')
+require File.join(Archive::LIBPATH, "ffi-libarchive", "archive")
+require File.join(Archive::LIBPATH, "ffi-libarchive", "reader")
+require File.join(Archive::LIBPATH, "ffi-libarchive", "writer")
+require File.join(Archive::LIBPATH, "ffi-libarchive", "entry")

@@ -1,4 +1,4 @@
-require 'ffi'
+require "ffi"
 
 module Archive
   module C
@@ -8,7 +8,7 @@ module Archive
     end
 
     extend FFI::Library
-    ffi_lib ['archive', 'libarchive.so']
+    ffi_lib ["archive", "libarchive.so"]
 
     attach_function :archive_version_number, [], :int
     attach_function :archive_version_string, [], :string
@@ -335,7 +335,7 @@ module Archive
     end
 
     def archive
-      raise Error, 'No archive open' unless @archive
+      raise Error, "No archive open" unless @archive
       @archive
     end
     protected :archive

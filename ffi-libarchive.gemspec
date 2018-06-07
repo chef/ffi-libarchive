@@ -1,25 +1,26 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ffi-libarchive/version'
+require "ffi-libarchive/version"
 
 Gem::Specification.new do |s|
-  s.name = 'ffi-libarchive'
+  s.name = "ffi-libarchive"
   s.version = Archive::VERSION
-  s.authors = ['John Bellone', 'Jamie Winsor', 'Frank Fischer']
+  s.authors = ["John Bellone", "Jamie Winsor", "Frank Fischer"]
   s.email = %w{jbellone@bloomberg.net jamie@vialstudios.com frank-fischer@shadow-soft.de}
-  s.description = 'A Ruby FFI binding to libarchive.'
+  s.description = "A Ruby FFI binding to libarchive."
   s.summary = s.description
-  s.homepage = 'https://github.com/johnbellone/ffi-libarchive'
+  s.homepage = "https://github.com/chef/ffi-libarchive"
   s.license = "Apache-2.0"
 
   s.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   s.test_files = s.files.grep(%r{^(test)/})
   s.require_paths = %w{lib}
-  s.required_ruby_version = '>= 1.9'
+  s.required_ruby_version = ">= 2.4.0"
 
-  s.add_dependency 'ffi', '~> 1.0'
+  s.add_dependency "ffi", "~> 1.0"
 
-  s.add_development_dependency 'bundler'
-  s.add_development_dependency 'rake'
+  s.add_development_dependency "bundler"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "test-unit"
 end
