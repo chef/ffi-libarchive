@@ -25,10 +25,7 @@ module Archive
         end
       else
         if compression.is_a? String
-          command = compression
           compression = -1
-        else
-          command = nil
         end
         new memory: string, compression: compression, format: format
       end
@@ -40,13 +37,13 @@ module Archive
       compression = params[:compression]
       case compression
       when Symbol
-        compression = Archive.const_get("COMPRESSION_#{compression.to_s.upcase}".intern)
+        compression = Archive.const_get("COMPRESSION_#{compression.to_s.upcase}".to_sym)
       end
 
       format = params[:format]
       case format
       when Symbol
-        format = Archive.const_get("FORMAT_#{format.to_s.upcase}".intern)
+        format = Archive.const_get("FORMAT_#{format.to_s.upcase}".to_sym)
       end
 
       raise Error, @archive if C.archive_write_set_compression(archive, compression) != C::OK
@@ -65,7 +62,7 @@ module Archive
                                                        @data,
                                                        nil) != C::OK
       end
-    rescue => e
+    rescue
       close
       raise
     end
@@ -93,7 +90,7 @@ module Archive
     end
 
     def add_entry
-      raise ArgumentError, 'No block given' unless block_given?
+      raise ArgumentError, "No block given" unless block_given?
 
       entry = Entry.new
       data = yield entry

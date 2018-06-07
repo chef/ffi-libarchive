@@ -59,7 +59,7 @@ module Archive
     end
 
     def entry
-      raise 'No entry object' unless @entry
+      raise "No entry object" unless @entry
       @entry
     end
 
@@ -175,14 +175,14 @@ module Archive
     def copy_lstat(filename)
       # TODO: get this work without ffi-inliner
       begin
-        require File.join(Archive::LIBPATH, 'ffi-libarchive', 'stat')
+        require File.join(Archive::LIBPATH, "ffi-libarchive", "stat")
       rescue => e
         raise "ffi-inliner build for copy_stat failed:\n#{e}"
       end
 
       stat = Archive::Stat.ffi_libarchive_create_lstat(filename)
       raise Error, "Copy stat failed: #{Archive::Stat.ffi_error}" if stat.null?
-      result = C.archive_entry_copy_stat(entry, stat)
+      C.archive_entry_copy_stat(entry, stat)
     ensure
       Archive::Stat.ffi_libarchive_free_stat(stat)
     end
@@ -200,14 +200,14 @@ module Archive
     def copy_stat(filename)
       # TODO: get this work without ffi-inliner
       begin
-        require File.join(Archive::LIBPATH, 'ffi-libarchive', 'stat')
+        require File.join(Archive::LIBPATH, "ffi-libarchive", "stat")
       rescue => e
         raise "ffi-inliner build for copy_stat failed:\n#{e}"
       end
 
       stat = Archive::Stat.ffi_libarchive_create_stat(filename)
       raise Error, "Copy stat failed: #{Archive::Stat.ffi_error}" if stat.null?
-      result = C.archive_entry_copy_stat(entry, stat)
+      C.archive_entry_copy_stat(entry, stat)
     ensure
       Archive::Stat.ffi_libarchive_free_stat(stat)
     end
@@ -262,7 +262,7 @@ module Archive
     end
 
     def filetype=(type)
-      type = Entry.const_get type.to_s.upcase.intern if type.is_a? Symbol
+      type = Entry.const_get type.to_s.upcase.to_sym if type.is_a? Symbol
       C.archive_entry_set_filetype(entry, type)
     end
 
