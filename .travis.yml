@@ -6,7 +6,6 @@ sudo: false
 addons:
   apt:
     packages:
-      - libarchive-dev
       - libarchive13
 
 script: bundle exec rake travis
