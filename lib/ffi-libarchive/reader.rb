@@ -57,7 +57,7 @@ module Archive
       raise ArgumentError, "Expected Archive::Entry as first argument" unless entry.is_a? Entry
       raise ArgumentError, "Expected Integer as second argument" unless flags.is_a? Integer
 
-      flags &= EXTRACT_FFLAGS
+      flags |= EXTRACT_FFLAGS
       raise Error, @archive if C.archive_read_extract(archive, entry.entry, flags) != C::OK
     end
 

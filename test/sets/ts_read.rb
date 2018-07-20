@@ -91,6 +91,33 @@ class TS_ReadArchive < Test::Unit::TestCase
     end
   end
 
+  def test_extract_no_additional_flags
+    Dir.mktmpdir do |dir|
+      Archive.read_open_filename("data/test.tar.gz") do |ar|
+        Dir.chdir(dir) do
+          ar.each_entry do |e|
+            ar.extract(e)
+            assert_not_equal File.mtime(e.pathname), e.mtime
+          end
+        end
+      end
+    end
+  end
+
+  def test_extract_extract_time
+    Dir.mktmpdir do |dir|
+      Archive.read_open_filename("data/test.tar.gz") do |ar|
+        Dir.chdir(dir) do
+          ar.each_entry do |e|
+            ar.extract(e, Archive::EXTRACT_TIME.to_i)
+            next if e.directory? || e.symbolic_link?
+            assert_equal File.mtime(e.pathname), e.mtime
+          end
+        end
+      end
+    end
+  end
+
   private
 
   def verify_content(ar)
