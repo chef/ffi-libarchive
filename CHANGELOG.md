@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 0.4.3 -->
-## [v0.4.3](https://github.com/chef/ffi-libarchive/tree/v0.4.3) (2018-11-01)
+<!-- latest_release 0.4.4 -->
+## [v0.4.4](https://github.com/chef/ffi-libarchive/tree/v0.4.4) (2018-11-01)
 
 #### Merged Pull Requests
-- Update expeditor / travis and add github templates [#14](https://github.com/chef/ffi-libarchive/pull/14) ([tas50](https://github.com/tas50))
+- Add search pattern for Windows&#39; libarchive-13.dll [#13](https://github.com/chef/ffi-libarchive/pull/13) ([bdwyertech](https://github.com/bdwyertech))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.4.2 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Add search pattern for Windows&#39; libarchive-13.dll [#13](https://github.com/chef/ffi-libarchive/pull/13) ([bdwyertech](https://github.com/bdwyertech)) <!-- 0.4.4 -->
 - Update expeditor / travis and add github templates [#14](https://github.com/chef/ffi-libarchive/pull/14) ([tas50](https://github.com/tas50)) <!-- 0.4.3 -->
 <!-- release_rollup -->
 
