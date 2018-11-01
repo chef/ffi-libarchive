@@ -10,8 +10,8 @@ addons:
 
 script: bundle exec rake travis
 rvm:
-  - 2.4
-  - 2.5
+  - 2.4.5
+  - 2.5.3
 branches:
   only:
     - master
