@@ -1,10 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release -->
+<!-- latest_release 0.4.7 -->
+## [v0.4.7](https://github.com/chef/ffi-libarchive/tree/v0.4.7) (2018-12-07)
+
+#### Merged Pull Requests
+- Add a code of conduct file [#17](https://github.com/chef/ffi-libarchive/pull/17) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=0.4.6 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Add a code of conduct file [#17](https://github.com/chef/ffi-libarchive/pull/17) ([tas50](https://github.com/tas50)) <!-- 0.4.7 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
