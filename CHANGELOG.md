@@ -1,10 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release -->
+<!-- latest_release 0.4.5 -->
+## [v0.4.5](https://github.com/chef/ffi-libarchive/tree/v0.4.5) (2018-12-07)
+
+#### Merged Pull Requests
+- Don&#39;t ship test and development files in the gem artifact [#15](https://github.com/chef/ffi-libarchive/pull/15) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=0.4.4 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Don&#39;t ship test and development files in the gem artifact [#15](https://github.com/chef/ffi-libarchive/pull/15) ([tas50](https://github.com/tas50)) <!-- 0.4.5 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
