@@ -13,13 +13,11 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/chef/ffi-libarchive"
   s.license = "Apache-2.0"
 
-  s.files = %w{ Gemfile Rakefile README.md LICENSE VERSION } + Dir.glob("{lib,test}/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) } + Dir.glob("*.gemspec")
+  s.files = %w{ LICENSE } + Dir.glob("lib/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
   s.require_paths = %w{lib}
   s.required_ruby_version = ">= 2.4.0"
 
   s.add_dependency "ffi", "~> 1.0"
 
   s.add_development_dependency "bundler"
-  s.add_development_dependency "rake"
-  s.add_development_dependency "test-unit"
 end

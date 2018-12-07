@@ -1,19 +1,27 @@
----
 language: ruby
 cache: bundler
 sudo: false
+distro: xenial
 
 addons:
   apt:
     packages:
       - libarchive13
 
-script: bundle exec rake travis
+bundler_args: --jobs 7 --without docs debug
+
 rvm:
   - 2.4.5
   - 2.5.3
+  - 2.6
+  - ruby-head
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+
 branches:
   only:
     - master
-matrix:
-  fast_finish: true
+
+script: bundle exec rake travis
