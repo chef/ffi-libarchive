@@ -1,6 +1,6 @@
 # ffi-libarchive
 
-[![Build Status](https://travis-ci.org/chef/ffi-libarchive.svg?branch=master)](https://travis-ci.org/chef/ffi-libarchive)
+[![Build Status](https://travis-ci.com/chef/ffi-libarchive.svg?branch=master)](https://travis-ci.com/chef/ffi-libarchive)
 [![Gem Version](https://badge.fury.io/rb/ffi-libarchive.svg)](https://badge.fury.io/rb/ffi-libarchive)
 
 A Ruby FFI binding to [libarchive][0].
