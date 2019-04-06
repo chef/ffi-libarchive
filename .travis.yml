@@ -1,7 +1,6 @@
 language: ruby
 cache: bundler
-sudo: false
-distro: xenial
+dist: xenial
 
 addons:
   apt:
