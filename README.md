@@ -13,8 +13,7 @@
 
 A Ruby FFI binding to [libarchive][0].
 
-This library provides Ruby FFI bindings to the well-known
-[libarchive library][0].
+This library provides Ruby FFI bindings to the well-known [libarchive library](https://github.com/libarchive/libarchive).
 
 ## Installation
 
@@ -83,6 +82,18 @@ Bug reports and pull requests are welcome on GitHub at <https://github.com/chef/
 
 ## License
 
-The gem is available as open source under the terms of the Apache License, v2
+- License:: Apache License, Version 2.0
 
-[0]: https://github.com/libarchive/libarchive
+```text
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
