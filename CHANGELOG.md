@@ -1,30 +1,27 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 0.4.10 -->
-## [v0.4.10](https://github.com/chef/ffi-libarchive/tree/v0.4.10) (2019-06-24)
-
-#### Merged Pull Requests
-- Silence warnings with constants [#21](https://github.com/chef/ffi-libarchive/pull/21) ([tas50](https://github.com/tas50))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=0.4.6 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Silence warnings with constants [#21](https://github.com/chef/ffi-libarchive/pull/21) ([tas50](https://github.com/tas50)) <!-- 0.4.10 -->
-- Replace Travis CI with Buildkite for testing [#20](https://github.com/chef/ffi-libarchive/pull/20) ([tas50](https://github.com/tas50)) <!-- 0.4.9 -->
-- Update the project to be part of Chef Foundation [#19](https://github.com/chef/ffi-libarchive/pull/19) ([tas50](https://github.com/tas50)) <!-- 0.4.8 -->
-- Add a code of conduct file [#17](https://github.com/chef/ffi-libarchive/pull/17) ([tas50](https://github.com/tas50)) <!-- 0.4.7 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v0.4.10](https://github.com/chef/ffi-libarchive/tree/v0.4.10) (2019-06-24)
+
+#### Merged Pull Requests
+- Add a code of conduct file [#17](https://github.com/chef/ffi-libarchive/pull/17) ([tas50](https://github.com/tas50))
+- Update the project to be part of Chef Foundation [#19](https://github.com/chef/ffi-libarchive/pull/19) ([tas50](https://github.com/tas50))
+- Replace Travis CI with Buildkite for testing [#20](https://github.com/chef/ffi-libarchive/pull/20) ([tas50](https://github.com/tas50))
+- Silence warnings with constants [#21](https://github.com/chef/ffi-libarchive/pull/21) ([tas50](https://github.com/tas50))
+<!-- latest_stable_release -->
+
 ## [v0.4.6](https://github.com/chef/ffi-libarchive/tree/v0.4.6) (2018-12-07)
 
 #### Merged Pull Requests
 - Don&#39;t ship test and development files in the gem artifact [#15](https://github.com/chef/ffi-libarchive/pull/15) ([tas50](https://github.com/tas50))
 - Add gem and travis badges [#16](https://github.com/chef/ffi-libarchive/pull/16) ([tas50](https://github.com/tas50))
-<!-- latest_stable_release -->
 
 ## [v0.4.4](https://github.com/chef/ffi-libarchive/tree/v0.4.4) (2018-11-01)
 
