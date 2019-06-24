@@ -1,6 +1,6 @@
 # ffi-libarchive
 
-[![Build Status](https://travis-ci.com/chef/ffi-libarchive.svg?branch=master)](https://travis-ci.com/chef/ffi-libarchive)
+[![Build status](https://badge.buildkite.com/a6b96170c6257e384000f311fa0052cb7880762e06bc66c91e.svg)](https://buildkite.com/chef-oss/chef-ffi-libarchive-master-verify)
 [![Gem Version](https://badge.fury.io/rb/ffi-libarchive.svg)](https://badge.fury.io/rb/ffi-libarchive)
 
 **Umbrella Project**: [Chef Foundation](https://github.com/chef/chef-oss-practices/blob/master/projects/chef-foundation.md)
