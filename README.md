@@ -3,6 +3,14 @@
 [![Build Status](https://travis-ci.com/chef/ffi-libarchive.svg?branch=master)](https://travis-ci.com/chef/ffi-libarchive)
 [![Gem Version](https://badge.fury.io/rb/ffi-libarchive.svg)](https://badge.fury.io/rb/ffi-libarchive)
 
+**Umbrella Project**: [Chef Foundation](https://github.com/chef/chef-oss-practices/blob/master/projects/chef-foundation.md)
+
+**Project State**: [Active](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md#active)
+
+**Issues [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md)**: 14 days
+
+**Pull Request [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md)**: 14 days
+
 A Ruby FFI binding to [libarchive][0].
 
 This library provides Ruby FFI bindings to the well-known
