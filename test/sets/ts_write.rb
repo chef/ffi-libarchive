@@ -12,7 +12,7 @@ class TS_WriteArchive < Test::Unit::TestCase
     ["test/b/c/d/", "directory", 0711, nil ],
     ["test/b/c/d/d.dat", "symbolic_link", 0777, "../c.dat" ],
     ["test/b/b.dat", "file", 0640, "s&\245\354(M\331=\270\000!s\355\240\252\355'N\304\343\bY\317\t\274\210\3128\321\347\234!".b ],
-    ["test/a.dat", "file", 0777, "\021\216\231Y\354\236\271\372\336\213\224R\211{D{\277\262\304\211xu\330\\\275@~\035\vSRM".b ]
+    ["test/a.dat", "file", 0777, "\021\216\231Y\354\236\271\372\336\213\224R\211{D{\277\262\304\211xu\330\\\275@~\035\vSRM".b ],
   ].freeze
 
   def test_end_to_end_write_read_tar_gz
@@ -48,7 +48,7 @@ class TS_WriteArchive < Test::Unit::TestCase
   def write_content(ar)
     content_spec_idx = 0
 
-    while content_spec_idx < CONTENT_SPEC.size()
+    while content_spec_idx < CONTENT_SPEC.size
       entry_path, entry_type, entry_mode, entry_content = \
         CONTENT_SPEC[content_spec_idx]
 

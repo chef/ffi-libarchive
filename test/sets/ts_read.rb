@@ -12,7 +12,7 @@ class TS_ReadArchive < Test::Unit::TestCase
     ["test/b/c/d/", "directory", 0711, nil ],
     ["test/b/c/d/d.dat", "symbolic_link", 0777, "../c.dat" ],
     ["test/b/b.dat", "file", 0640, "s&\245\354(M\331=\270\000!s\355\240\252\355'N\304\343\bY\317\t\274\210\3128\321\347\234!".b ],
-    ["test/a.dat", "file", 0777, "\021\216\231Y\354\236\271\372\336\213\224R\211{D{\277\262\304\211xu\330\\\275@~\035\vSRM".b ]
+    ["test/a.dat", "file", 0777, "\021\216\231Y\354\236\271\372\336\213\224R\211{D{\277\262\304\211xu\330\\\275@~\035\vSRM".b ],
   ].freeze
 
   def setup
@@ -58,18 +58,18 @@ class TS_ReadArchive < Test::Unit::TestCase
 
     Dir.mktmpdir do |dir|
       Archive.write_open_filename(dir + "/test.tar.gz",
-                                  Archive::COMPRESSION_BZIP2, Archive::FORMAT_TAR) do |ar|
-        ar.new_entry do |entry|
-          entry.pathname = "chubby.dat"
-          entry.mode = 0666
-          entry.filetype = Archive::Entry::FILE
-          entry.atime = Time.now.to_i
-          entry.mtime = Time.now.to_i
-          entry.size = entry_size
-          ar.write_header(entry)
-          ar.write_data(content)
+        Archive::COMPRESSION_BZIP2, Archive::FORMAT_TAR) do |ar|
+          ar.new_entry do |entry|
+            entry.pathname = "chubby.dat"
+            entry.mode = 0666
+            entry.filetype = Archive::Entry::FILE
+            entry.atime = Time.now.to_i
+            entry.mtime = Time.now.to_i
+            entry.size = entry_size
+            ar.write_header(entry)
+            ar.write_data(content)
+          end
         end
-      end
 
       Archive.read_open_filename(dir + "/test.tar.gz") do |ar|
         ar.next_header
@@ -110,6 +110,7 @@ class TS_ReadArchive < Test::Unit::TestCase
           ar.each_entry do |e|
             ar.extract(e, Archive::EXTRACT_TIME.to_i)
             next if e.directory? || e.symbolic_link?
+
             assert_equal File.mtime(e.pathname), e.mtime
           end
         end

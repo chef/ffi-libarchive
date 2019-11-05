@@ -58,9 +58,9 @@ module Archive
         end
         @data = write_callback params[:memory]
         raise Error, @archive if C.archive_write_open(archive, nil,
-                                                       nil,
-                                                       @data,
-                                                       nil) != C::OK
+          nil,
+          @data,
+          nil) != C::OK
       end
     rescue
       close
@@ -117,10 +117,12 @@ module Archive
           if (n = C.archive_write_data(ar, str, str.bytesize)) < 1
             return len
           end
+
           len += n
         end
       else
         raise ArgumentError, "wrong number of argument (#{args.size}) for 1)" if args.size != 1
+
         str = args[0]
         C.archive_write_data(archive, str, str.bytesize)
       end
