@@ -1,3 +1,3 @@
 module Archive
-  VERSION = "0.4.10".freeze
+  VERSION = "0.4.11".freeze
 end
