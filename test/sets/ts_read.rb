@@ -167,7 +167,7 @@ class TS_ReadArchive < Test::Unit::TestCase
   end
 
   def test_read_from_stream_with_skip_seek_object
-    expect_pathname, expect_type, expect_mode, expect_content = CONTENT_SPEC[6]
+    expect_pathname, expect_type, _, expect_content = CONTENT_SPEC[6]
     verified = false
     reader = SkipNSeekTestReader.new
 
