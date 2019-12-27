@@ -71,8 +71,6 @@ module Archive
           @buffer.write_bytes(data)
           archive_data.write_pointer(@buffer)
           data.size
-        rescue
-          return C::FATAL
         end
         C.archive_read_set_read_callback(archive, @read_callback)
 
