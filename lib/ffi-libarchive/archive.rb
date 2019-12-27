@@ -23,8 +23,10 @@ module Archive
     attach_function :archive_read_support_compression_all, [:pointer], :int
 
     callback :archive_read_callback, %i{pointer pointer pointer}, :int
+    callback :archive_skip_callback, %i{pointer pointer int}, :int
     attach_function :archive_read_set_read_callback, %i{pointer archive_read_callback}, :int
     attach_function :archive_read_set_callback_data, %i{pointer pointer}, :int
+    attach_function :archive_read_set_skip_callback, %i{pointer archive_skip_callback}, :int
 
     attach_function_maybe :archive_read_set_format, %i{pointer int}, :int
     attach_function_maybe :archive_read_append_filter, %i{pointer int}, :int

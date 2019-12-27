@@ -74,8 +74,15 @@ module Archive
         rescue
           return C::FATAL
         end
-
         C.archive_read_set_read_callback(archive, @read_callback)
+
+        if @reader.respond_to?(:skip)
+          @skip_callback = FFI::Function.new(:int, %i{pointer pointer int}) do |_, _, offset|
+            @reader.skip(offset)
+          end
+          C.archive_read_set_skip_callback(archive, @skip_callback)
+        end
+
         # Required or open1 will segfault, even though the callback data is not used.
         C.archive_read_set_callback_data(archive, nil)
         raise Error, @archive if C.archive_read_open1(archive) != C::OK

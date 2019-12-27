@@ -118,7 +118,7 @@ class TS_ReadArchive < Test::Unit::TestCase
     end
   end
 
-  def test_read_from_stream
+  def test_read_from_stream_with_proc
     fp = File.open("data/test.tar.gz", "rb")
     reader = Proc.new do
       fp.read(32)
@@ -127,6 +127,55 @@ class TS_ReadArchive < Test::Unit::TestCase
     Archive.read_open_stream(reader) do |ar|
       verify_content(ar)
     end
+  end
+
+  class TestReader
+    def initialize
+      @fp = File.open("data/test.tar.gz", "rb")
+    end
+
+    def call
+      @fp.read(32)
+    end
+  end
+
+  def test_read_from_stream_with_object
+    Archive.read_open_stream(TestReader.new) do |ar|
+      verify_content(ar)
+    end
+  end
+
+  class SkippableTestReader < TestReader
+    def skip(offset)
+      orig_pos = fp.tell
+      fp.seek(offset, :CUR)
+      fp.tell - orig_pos
+    end
+  end
+
+  def test_read_from_stream_with_skippable_object
+    expect_pathname, expect_type, expect_mode, expect_content = CONTENT_SPEC[6]
+    verified = false
+
+    Archive.read_open_stream(SkippableTestReader.new) do |ar|
+      ar.each_entry do |entry|
+        next unless entry.pathname == expect_pathname
+        verified = true
+
+        assert_equal expect_pathname, entry.pathname
+        assert_equal entry.send("#{expect_type}?"), true
+        assert_equal expect_mode, (entry.mode & 07777)
+
+        if entry.symbolic_link?
+          assert_equal expect_content, entry.symlink
+        elsif entry.file?
+          content = ar.read_data(1024)
+          assert_equal expect_content, content
+        end
+      end
+    end
+
+    assert verified
   end
 
   private
