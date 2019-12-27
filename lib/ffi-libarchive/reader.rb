@@ -77,10 +77,17 @@ module Archive
         C.archive_read_set_read_callback(archive, @read_callback)
 
         if @reader.respond_to?(:skip)
-          @skip_callback = FFI::Function.new(:int, %i{pointer pointer int}) do |_, _, offset|
+          @skip_callback = FFI::Function.new(:int, %i{pointer pointer int64}) do |_, _, offset|
             @reader.skip(offset)
           end
           C.archive_read_set_skip_callback(archive, @skip_callback)
+        end
+
+        if @reader.respond_to?(:seek)
+          @seek_callback = FFI::Function.new(:int, %i{pointer pointer int64 int}) do |_, _, offset, whence|
+            @reader.seek(offset, whence)
+          end
+          C.archive_read_set_seek_callback(archive, @seek_callback)
         end
 
         # Required or open1 will segfault, even though the callback data is not used.
