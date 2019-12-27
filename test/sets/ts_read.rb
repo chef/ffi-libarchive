@@ -118,6 +118,17 @@ class TS_ReadArchive < Test::Unit::TestCase
     end
   end
 
+  def test_read_from_stream
+    fp = File.open("data/test.tar.gz", "rb")
+    reader = Proc.new do
+      fp.read(32)
+    end
+
+    Archive.read_open_stream(reader) do |ar|
+      verify_content(ar)
+    end
+  end
+
   private
 
   def verify_content(ar)
