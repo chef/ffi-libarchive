@@ -18,8 +18,17 @@ module Archive
     attach_function :archive_read_new, [], :pointer
     attach_function :archive_read_open_filename, %i{pointer string size_t}, :int
     attach_function :archive_read_open_memory, %i{pointer pointer size_t}, :int
+    attach_function :archive_read_open1, [:pointer], :int
     attach_function :archive_read_support_compression_program, %i{pointer string}, :int
     attach_function :archive_read_support_compression_all, [:pointer], :int
+
+    callback :archive_read_callback, %i{pointer pointer pointer}, :int
+    callback :archive_skip_callback, %i{pointer pointer int64}, :int
+    callback :archive_seek_callback, %i{pointer pointer int64 int}, :int
+    attach_function :archive_read_set_read_callback, %i{pointer archive_read_callback}, :int
+    attach_function :archive_read_set_callback_data, %i{pointer pointer}, :int
+    attach_function :archive_read_set_skip_callback, %i{pointer archive_skip_callback}, :int
+    attach_function :archive_read_set_seek_callback, %i{pointer archive_seek_callback}, :int
 
     attach_function_maybe :archive_read_set_format, %i{pointer int}, :int
     attach_function_maybe :archive_read_append_filter, %i{pointer int}, :int
@@ -276,6 +285,10 @@ module Archive
 
   def self.read_open_memory(string, command = nil, &block)
     Reader.open_memory string, command, &block
+  end
+
+  def self.read_open_stream(reader, &block)
+    Reader.open_stream reader, &block
   end
 
   def self.write_open_filename(file_name, compression, format, &block)

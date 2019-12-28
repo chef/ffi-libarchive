@@ -14,7 +14,7 @@ pkg/
 *.rej
 *.swo
 *.swp
-*.zip
+# *.zip (used for a test fixture)
 *.vi
 *~
 

@@ -118,6 +118,79 @@ class TS_ReadArchive < Test::Unit::TestCase
     end
   end
 
+  def test_read_from_stream_with_proc
+    fp = File.open("data/test.tar.gz", "rb")
+    reader = Proc.new do
+      fp.read(32)
+    end
+
+    Archive.read_open_stream(reader) do |ar|
+      verify_content(ar)
+    end
+  end
+
+  class TestReader
+    def initialize
+      @fp = File.open("data/test.tar.gz", "rb")
+    end
+
+    def call
+      @fp.read(32)
+    end
+  end
+
+  def test_read_from_stream_with_object
+    Archive.read_open_stream(TestReader.new) do |ar|
+      verify_content(ar)
+    end
+  end
+
+  class SkipNSeekTestReader < TestReader
+    attr_reader :skip_called, :seek_called
+
+    def initialize
+      @fp = File.open("data/test.zip")
+    end
+
+    def skip(offset)
+      @skip_called = true
+      orig_pos = fp.tell
+      fp.seek(offset, :CUR)
+      fp.tell - orig_pos
+    end
+
+    def seek(offset, whence)
+      @seek_called = true
+      @fp.seek(offset, whence)
+      @fp.tell
+    end
+  end
+
+  def test_read_from_stream_with_skip_seek_object
+    expect_pathname, expect_type, _, expect_content = CONTENT_SPEC[6]
+    verified = false
+    reader = SkipNSeekTestReader.new
+
+    Archive.read_open_stream(reader) do |ar|
+      ar.each_entry do |entry|
+        next unless entry.pathname == expect_pathname
+        verified = true
+
+        assert_equal expect_pathname, entry.pathname
+        assert_equal entry.send("#{expect_type}?"), true
+        # Skip verifying file mode; Zip files don't store it.
+
+        assert entry.file?
+        content = ar.read_data(1024)
+        assert_equal expect_content, content
+      end
+    end
+
+    assert verified
+    assert reader.skip_called
+    assert reader.seek_called
+  end
+
   private
 
   def verify_content(ar)

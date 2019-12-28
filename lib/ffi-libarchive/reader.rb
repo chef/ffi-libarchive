@@ -28,6 +28,19 @@ module Archive
       end
     end
 
+    def self.open_stream(reader)
+      if block_given?
+        reader = new reader: reader
+        begin
+          yield reader
+        ensure
+          reader.close
+        end
+      else
+        new reader: reader
+      end
+    end
+
     def initialize(params = {})
       super C.method(:archive_read_new), C.method(:archive_read_finish)
 
@@ -40,13 +53,44 @@ module Archive
 
       raise Error, @archive if C.archive_read_support_format_all(archive) != C::OK
 
-      if params[:file_name]
+      case
+      when params[:file_name]
         raise Error, @archive if C.archive_read_open_filename(archive, params[:file_name], 1024) != C::OK
-      elsif params[:memory]
+      when params[:memory]
         str = params[:memory]
         @data = FFI::MemoryPointer.new(str.bytesize + 1)
         @data.write_string str, str.bytesize
         raise Error, @archive if C.archive_read_open_memory(archive, @data, str.bytesize) != C::OK
+      when params[:reader]
+        @reader = params[:reader]
+        @buffer = nil
+
+        @read_callback = FFI::Function.new(:int, %i{pointer pointer pointer}) do |_, _, archive_data|
+          data = @reader.call || ""
+          @buffer = FFI::MemoryPointer.new(:char, data.size) if @buffer.nil? || @buffer.size < data.size
+          @buffer.write_bytes(data)
+          archive_data.write_pointer(@buffer)
+          data.size
+        end
+        C.archive_read_set_read_callback(archive, @read_callback)
+
+        if @reader.respond_to?(:skip)
+          @skip_callback = FFI::Function.new(:int, %i{pointer pointer int64}) do |_, _, offset|
+            @reader.skip(offset)
+          end
+          C.archive_read_set_skip_callback(archive, @skip_callback)
+        end
+
+        if @reader.respond_to?(:seek)
+          @seek_callback = FFI::Function.new(:int, %i{pointer pointer int64 int}) do |_, _, offset, whence|
+            @reader.seek(offset, whence)
+          end
+          C.archive_read_set_seek_callback(archive, @seek_callback)
+        end
+
+        # Required or open1 will segfault, even though the callback data is not used.
+        C.archive_read_set_callback_data(archive, nil)
+        raise Error, @archive if C.archive_read_open1(archive) != C::OK
       end
     rescue
       close
