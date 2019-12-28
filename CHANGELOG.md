@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 0.4.12 -->
-## [v0.4.12](https://github.com/chef/ffi-libarchive/tree/v0.4.12) (2019-12-28)
+<!-- latest_release 1.0.0 -->
+## [v1.0.0](https://github.com/chef/ffi-libarchive/tree/v1.0.0) (2019-12-28)
 
 #### Merged Pull Requests
-- Add support for custom read functions [#27](https://github.com/chef/ffi-libarchive/pull/27) ([jatoben](https://github.com/jatoben))
+-  Add Ruby 2.7rc testing and cache gem installs in Buildkite [#28](https://github.com/chef/ffi-libarchive/pull/28) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.4.10 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+-  Add Ruby 2.7rc testing and cache gem installs in Buildkite [#28](https://github.com/chef/ffi-libarchive/pull/28) ([tas50](https://github.com/tas50)) <!-- 1.0.0 -->
 - Add support for custom read functions [#27](https://github.com/chef/ffi-libarchive/pull/27) ([jatoben](https://github.com/jatoben)) <!-- 0.4.12 -->
 - Chefstyle fixes to get the build green again [#25](https://github.com/chef/ffi-libarchive/pull/25) ([tas50](https://github.com/tas50)) <!-- 0.4.11 -->
 <!-- release_rollup -->
