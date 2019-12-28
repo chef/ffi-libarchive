@@ -174,6 +174,7 @@ class TS_ReadArchive < Test::Unit::TestCase
     Archive.read_open_stream(reader) do |ar|
       ar.each_entry do |entry|
         next unless entry.pathname == expect_pathname
+
         verified = true
 
         assert_equal expect_pathname, entry.pathname
