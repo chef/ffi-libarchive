@@ -17,14 +17,14 @@ module Archive
     CHARACTER_SPECIAL = 0020000 #  character device
     FIFO              = 0010000 #  FIFO
 
-    def self.from_pointer(entry)
-      new entry
+    def self.from_pointer(entry, clone: false)
+      new entry, clone: clone
     end
 
-    def initialize(entry = nil)
+    def initialize(entry = nil, clone: false)
       @entry_free = [true]
       if entry
-        @entry = entry
+        @entry = clone ? C.archive_entry_clone(entry) : entry
         yield self if block_given?
       else
         @entry = C.archive_entry_new
