@@ -90,6 +90,22 @@ class TS_ReadArchive < Test::Unit::TestCase
     end
   end
 
+  def test_read_entry_not_reused_if_clone_is_specified
+    expect_pathname, expect_type, expect_mode, = CONTENT_SPEC.first
+
+    Archive.read_open_filename("data/test.tar.gz") do |ar|
+      entry = ar.next_header(clone_entry: true)
+      assert_equal expect_pathname, entry.pathname
+      assert_equal entry.send("#{expect_type}?"), true
+      assert_equal expect_mode, (entry.mode & 07777)
+
+      _ = ar.next_header
+      assert_equal expect_pathname, entry.pathname
+      assert_equal entry.send("#{expect_type}?"), true
+      assert_equal expect_mode, (entry.mode & 07777)
+    end
+  end
+
   def test_extract_no_additional_flags
     Dir.mktmpdir do |dir|
       Archive.read_open_filename("data/test.tar.gz") do |ar|
