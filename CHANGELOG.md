@@ -1,10 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release -->
+<!-- latest_release 1.0.1 -->
+## [v1.0.1](https://github.com/chef/ffi-libarchive/tree/v1.0.1) (2020-04-19)
+
+#### Merged Pull Requests
+- Optionally clone entries when iterating through an archive [#30](https://github.com/chef/ffi-libarchive/pull/30) ([jatoben](https://github.com/jatoben))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=1.0.0 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Optionally clone entries when iterating through an archive [#30](https://github.com/chef/ffi-libarchive/pull/30) ([jatoben](https://github.com/jatoben)) <!-- 1.0.1 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
