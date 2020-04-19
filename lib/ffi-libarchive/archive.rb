@@ -123,6 +123,7 @@ module Archive
     attach_function :archive_write_set_bytes_in_last_block, %i{pointer int}, :int
 
     attach_function :archive_entry_new, [], :pointer
+    attach_function :archive_entry_clone, [:pointer], :pointer
     attach_function :archive_entry_free, [:pointer], :void
     attach_function :archive_entry_atime, [:pointer], :time_t
     attach_function :archive_entry_atime_nsec, %i{pointer time_t long}, :void

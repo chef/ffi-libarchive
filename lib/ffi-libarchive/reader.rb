@@ -109,11 +109,11 @@ module Archive
       raise Error, @archive if C.archive_read_header_position archive
     end
 
-    def next_header
+    def next_header(clone_entry: false)
       entry_ptr = FFI::MemoryPointer.new(:pointer)
       case C.archive_read_next_header(archive, entry_ptr)
       when C::OK
-        Entry.from_pointer entry_ptr.read_pointer
+        Entry.from_pointer entry_ptr.read_pointer, clone: clone_entry
       when C::EOF
         @eof = true
         nil

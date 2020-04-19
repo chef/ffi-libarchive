@@ -17,14 +17,14 @@ module Archive
     CHARACTER_SPECIAL = 0020000 #  character device
     FIFO              = 0010000 #  FIFO
 
-    def self.from_pointer(entry)
-      new entry
+    def self.from_pointer(entry, clone: false)
+      new entry, clone: clone
     end
 
-    def initialize(entry = nil)
+    def initialize(entry = nil, clone: false)
       @entry_free = [true]
       if entry
-        @entry = entry
+        @entry = clone ? C.archive_entry_clone(entry) : entry
         yield self if block_given?
       else
         @entry = C.archive_entry_new
@@ -34,7 +34,7 @@ module Archive
           result = yield self
           C.archive_entry_free(@entry)
           @entry = nil
-          return result
+          result
         else
           @entry_free[0] = false
           ObjectSpace.define_finalizer(self, Entry.finalizer(@entry, @entry_free))
@@ -462,10 +462,10 @@ module Archive
       value = FFI::MemoryPointer.new :pointer
       size = FFI::MemoryPointer.new :size_t
       if C.archive_entry_xattr_next(entry, name, value, size) != C::OK
-        return nil
+        nil
       else
         # TODO: someday size.read_size_t could work
-        return [name.null? ? nil : name.read_string,
+        [name.null? ? nil : name.read_string,
                 value.null? ? nil : value.get_string(0, size.read_ulong)]
       end
     end
