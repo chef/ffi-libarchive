@@ -156,8 +156,8 @@ module Archive
     attach_function :archive_entry_fflags, %i{pointer pointer pointer}, :void
     attach_function :archive_entry_set_fflags, %i{pointer ulong ulong}, :void
     attach_function :archive_entry_fflags_text, [:pointer], :string
-    attach_function :archive_entry_gid, [:pointer], :gid_t
-    attach_function :archive_entry_set_gid, %i{pointer gid_t}, :void
+    attach_function :archive_entry_gid, [:pointer], :uint
+    attach_function :archive_entry_set_gid, %i{pointer uint}, :void
     attach_function :archive_entry_gname, [:pointer], :string
     attach_function :archive_entry_set_gname, %i{pointer string}, :void
     attach_function :archive_entry_hardlink, [:pointer], :string
@@ -186,8 +186,8 @@ module Archive
     attach_function :archive_entry_strmode, [:pointer], :string
     attach_function :archive_entry_symlink, [:pointer], :string
     attach_function :archive_entry_set_symlink, %i{pointer string}, :void
-    attach_function :archive_entry_uid, [:pointer], :uid_t
-    attach_function :archive_entry_set_uid, %i{pointer uid_t}, :void
+    attach_function :archive_entry_uid, [:pointer], :uint
+    attach_function :archive_entry_set_uid, %i{pointer uint}, :void
     attach_function :archive_entry_uname, [:pointer], :string
     attach_function :archive_entry_set_uname, %i{pointer string}, :void
     attach_function :archive_entry_copy_stat, %i{pointer pointer}, :void
