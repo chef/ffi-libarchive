@@ -1,30 +1,27 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.0.3 -->
-## [v1.0.3](https://github.com/chef/ffi-libarchive/tree/v1.0.3) (2020-06-26)
-
-#### Merged Pull Requests
-- Modern expeditor / buildkite setup [#33](https://github.com/chef/ffi-libarchive/pull/33) ([tas50](https://github.com/tas50))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=1.0.0 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Modern expeditor / buildkite setup [#33](https://github.com/chef/ffi-libarchive/pull/33) ([tas50](https://github.com/tas50)) <!-- 1.0.3 -->
-- Replace specific types with more generic equivalents. [#32](https://github.com/chef/ffi-libarchive/pull/32) ([phiggins](https://github.com/phiggins)) <!-- 1.0.2 -->
-- Optionally clone entries when iterating through an archive [#30](https://github.com/chef/ffi-libarchive/pull/30) ([jatoben](https://github.com/jatoben)) <!-- 1.0.1 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v1.0.3](https://github.com/chef/ffi-libarchive/tree/v1.0.3) (2020-06-26)
+
+#### Merged Pull Requests
+- Optionally clone entries when iterating through an archive [#30](https://github.com/chef/ffi-libarchive/pull/30) ([jatoben](https://github.com/jatoben))
+- Replace specific types with more generic equivalents. [#32](https://github.com/chef/ffi-libarchive/pull/32) ([phiggins](https://github.com/phiggins))
+- Modern expeditor / buildkite setup [#33](https://github.com/chef/ffi-libarchive/pull/33) ([tas50](https://github.com/tas50))
+<!-- latest_stable_release -->
+
 ## [v1.0.0](https://github.com/chef/ffi-libarchive/tree/v1.0.0) (2019-12-28)
 
 #### Merged Pull Requests
 - Chefstyle fixes to get the build green again [#25](https://github.com/chef/ffi-libarchive/pull/25) ([tas50](https://github.com/tas50))
 - Add support for custom read functions [#27](https://github.com/chef/ffi-libarchive/pull/27) ([jatoben](https://github.com/jatoben))
 -  Add Ruby 2.7rc testing and cache gem installs in Buildkite [#28](https://github.com/chef/ffi-libarchive/pull/28) ([tas50](https://github.com/tas50))
-<!-- latest_stable_release -->
 
 ## [v0.4.10](https://github.com/chef/ffi-libarchive/tree/v0.4.10) (2019-06-24)
 
