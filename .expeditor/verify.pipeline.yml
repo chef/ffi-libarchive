@@ -1,4 +1,13 @@
 ---
+expeditor:
+  cached_folders:
+    - vendor
+  defaults:
+    buildkite:
+      retry:
+        automatic:
+          limit: 1
+      timeout_in_minutes: 30
 
 steps:
 
@@ -31,7 +40,7 @@ steps:
     executor:
       docker:
         image: ruby:2.6-stretch
-- label: run-lint-and-specs-ruby-2.7-rc
+- label: run-lint-and-specs-ruby-2.7
   commands:
     - apt-get update
     - apt-get install -y libarchive13
@@ -39,4 +48,4 @@ steps:
   expeditor:
     executor:
       docker:
-        image: ruby:2.7-rc-buster
+        image: ruby:2.7-buster
