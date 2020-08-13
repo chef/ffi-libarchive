@@ -1,28 +1,25 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.0.4 -->
+<!-- latest_release -->
+<!-- latest_release -->
+
+<!-- release_rollup -->
+<!-- release_rollup -->
+
+<!-- latest_stable_release -->
 ## [v1.0.4](https://github.com/chef/ffi-libarchive/tree/v1.0.4) (2020-08-13)
 
 #### Merged Pull Requests
 - Optimize requires for non-omnibus installs [#34](https://github.com/chef/ffi-libarchive/pull/34) ([tas50](https://github.com/tas50))
-<!-- latest_release -->
-
-<!-- release_rollup since=1.0.3 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Optimize requires for non-omnibus installs [#34](https://github.com/chef/ffi-libarchive/pull/34) ([tas50](https://github.com/tas50)) <!-- 1.0.4 -->
-<!-- release_rollup -->
-
 <!-- latest_stable_release -->
+
 ## [v1.0.3](https://github.com/chef/ffi-libarchive/tree/v1.0.3) (2020-06-26)
 
 #### Merged Pull Requests
 - Optionally clone entries when iterating through an archive [#30](https://github.com/chef/ffi-libarchive/pull/30) ([jatoben](https://github.com/jatoben))
 - Replace specific types with more generic equivalents. [#32](https://github.com/chef/ffi-libarchive/pull/32) ([phiggins](https://github.com/phiggins))
 - Modern expeditor / buildkite setup [#33](https://github.com/chef/ffi-libarchive/pull/33) ([tas50](https://github.com/tas50))
-<!-- latest_stable_release -->
 
 ## [v1.0.0](https://github.com/chef/ffi-libarchive/tree/v1.0.0) (2019-12-28)
 
