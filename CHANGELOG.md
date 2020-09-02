@@ -1,10 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release -->
+<!-- latest_release 1.0.5 -->
+## [v1.0.5](https://github.com/chef/ffi-libarchive/tree/v1.0.5) (2020-09-02)
+
+#### Merged Pull Requests
+- Update chefstyle requirement from 1.2.1 to 1.3.2 [#35](https://github.com/chef/ffi-libarchive/pull/35) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=1.0.4 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Update chefstyle requirement from 1.2.1 to 1.3.2 [#35](https://github.com/chef/ffi-libarchive/pull/35) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.5 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
