@@ -1,6 +1,6 @@
 module Archive
   # :stopdoc:
-  LIBPATH ||= ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
+  LIBPATH ||= __dir__ + ::File::SEPARATOR
   PATH ||= ::File.dirname(LIBPATH) + ::File::SEPARATOR
   # :startdoc:
 
