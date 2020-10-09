@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.0.8 -->
-## [v1.0.8](https://github.com/chef/ffi-libarchive/tree/v1.0.8) (2020-09-30)
+<!-- latest_release 1.0.9 -->
+## [v1.0.9](https://github.com/chef/ffi-libarchive/tree/v1.0.9) (2020-10-09)
 
 #### Merged Pull Requests
-- Update chefstyle requirement from 1.4.2 to 1.4.3 [#38](https://github.com/chef/ffi-libarchive/pull/38) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Update chefstyle requirement from 1.4.3 to 1.4.4 [#39](https://github.com/chef/ffi-libarchive/pull/39) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.0.4 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Update chefstyle requirement from 1.4.3 to 1.4.4 [#39](https://github.com/chef/ffi-libarchive/pull/39) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.9 -->
 - Update chefstyle requirement from 1.4.2 to 1.4.3 [#38](https://github.com/chef/ffi-libarchive/pull/38) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.8 -->
 - Update chefstyle requirement from 1.4.0 to 1.4.2 [#37](https://github.com/chef/ffi-libarchive/pull/37) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.7 -->
 - Update chefstyle requirement from 1.3.2 to 1.4.0 [#36](https://github.com/chef/ffi-libarchive/pull/36) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.6 -->
