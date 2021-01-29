@@ -19,7 +19,7 @@ steps:
   expeditor:
     executor:
       docker:
-        image: ruby:2.4-stretch
+        image: ruby:2.4-buster
 
 - label: run-lint-and-specs-ruby-2.5
   commands:
@@ -29,7 +29,7 @@ steps:
   expeditor:
     executor:
       docker:
-        image: ruby:2.5-stretch
+        image: ruby:2.5-buster
 
 - label: run-lint-and-specs-ruby-2.6
   commands:
@@ -39,7 +39,8 @@ steps:
   expeditor:
     executor:
       docker:
-        image: ruby:2.6-stretch
+        image: ruby:2.6-buster
+
 - label: run-lint-and-specs-ruby-2.7
   commands:
     - apt-get update
@@ -49,3 +50,13 @@ steps:
     executor:
       docker:
         image: ruby:2.7-buster
+
+- label: run-lint-and-specs-ruby-3.0
+  commands:
+    - apt-get update
+    - apt-get install -y libarchive13
+    - .expeditor/run_linux_tests.sh rake
+  expeditor:
+    executor:
+      docker:
+        image: ruby:3.0-buster
