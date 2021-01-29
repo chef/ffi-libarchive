@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.0.14 -->
-## [v1.0.14](https://github.com/chef/ffi-libarchive/tree/v1.0.14) (2021-01-29)
+<!-- latest_release 1.0.15 -->
+## [v1.0.15](https://github.com/chef/ffi-libarchive/tree/v1.0.15) (2021-01-29)
 
 #### Merged Pull Requests
-- Update chefstyle requirement from 1.5.9 to 1.6.1 [#48](https://github.com/chef/ffi-libarchive/pull/48) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Test on Ruby 3.0 [#49](https://github.com/chef/ffi-libarchive/pull/49) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.0.4 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Test on Ruby 3.0 [#49](https://github.com/chef/ffi-libarchive/pull/49) ([tas50](https://github.com/tas50)) <!-- 1.0.15 -->
 - Update chefstyle requirement from 1.5.9 to 1.6.1 [#48](https://github.com/chef/ffi-libarchive/pull/48) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.14 -->
 - Update chefstyle requirement from 1.5.8 to 1.5.9 [#47](https://github.com/chef/ffi-libarchive/pull/47) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.13 -->
 - Update chefstyle requirement from 1.5.0 to 1.5.8 [#46](https://github.com/chef/ffi-libarchive/pull/46) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.12 -->
