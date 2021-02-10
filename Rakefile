@@ -18,8 +18,8 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc "Run style & unit tests on Travis"
-task travis: %w{test style}
+task travis: %w{style test}
 
 # Default
 desc "Run style, unit"
-task default: %w{test style}
+task default: %w{style test}
