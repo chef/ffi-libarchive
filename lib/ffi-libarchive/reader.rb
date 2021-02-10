@@ -97,9 +97,16 @@ module Archive
       raise
     end
 
-    def extract(entry, flags = 0)
+    def extract(entry, flags = 0, destination: nil)
       raise ArgumentError, "Expected Archive::Entry as first argument" unless entry.is_a? Entry
       raise ArgumentError, "Expected Integer as second argument" unless flags.is_a? Integer
+      raise ArgumentError, "Expected String as destination" if destination && !destination.is_a?(String)
+
+      if destination
+        # We update the pathname here so this will change for the caller as a side effect, but this seems convenient and accurate?
+        pathname = C.archive_entry_pathname(entry.entry)
+        C.archive_entry_set_pathname(entry.entry, "#{destination}/#{pathname}")
+      end
 
       flags |= EXTRACT_FFLAGS
       raise Error, @archive if C.archive_read_extract(archive, entry.entry, flags) != C::OK
