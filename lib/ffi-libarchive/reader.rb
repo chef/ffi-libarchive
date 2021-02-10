@@ -97,9 +97,14 @@ module Archive
       raise
     end
 
-    def extract(entry, flags = 0)
+    def extract(entry, flags = 0, destination: nil)
       raise ArgumentError, "Expected Archive::Entry as first argument" unless entry.is_a? Entry
       raise ArgumentError, "Expected Integer as second argument" unless flags.is_a? Integer
+      raise ArgumentError, "Expected String as destination" if destination && !destination.is_a?(String)
+
+      pathname = C.archive_entry_pathname(entry.entry).get_pointer(0).read_string
+
+      puts pathname
 
       flags |= EXTRACT_FFLAGS
       raise Error, @archive if C.archive_read_extract(archive, entry.entry, flags) != C::OK

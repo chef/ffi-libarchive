@@ -18,7 +18,7 @@ module Archive
     attach_function :archive_read_new, [], :pointer
     attach_function :archive_read_open_filename, %i{pointer string size_t}, :int
     attach_function :archive_read_open_memory, %i{pointer pointer size_t}, :int
-    attach_function :archive_read_open1, [:pointer], :int
+    # attach_function :archive_read_open1, [:pointer], :int
     attach_function :archive_read_support_compression_program, %i{pointer string}, :int
     attach_function :archive_read_support_compression_all, [:pointer], :int
 
