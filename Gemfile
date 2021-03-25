@@ -9,7 +9,7 @@ group :docs do
 end
 
 group :test do
-  gem "chefstyle", "1.7.2"
+  gem "chefstyle", "1.7.4"
   gem "rspec", "~> 3.0"
   gem "rake"
   gem "test-unit"
