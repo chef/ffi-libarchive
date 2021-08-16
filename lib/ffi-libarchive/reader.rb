@@ -2,16 +2,16 @@ module Archive
   class Reader < BaseArchive
     private_class_method :new
 
-    def self.open_filename(file_name, command = nil)
+    def self.open_filename(file_name, command = nil, strip_components: 0)
       if block_given?
-        reader = open_filename file_name, command
+        reader = open_filename file_name, command, strip_components: strip_components
         begin
           yield reader
         ensure
           reader.close
         end
       else
-        new file_name: file_name, command: command
+        new file_name: file_name, command: command, strip_components: strip_components
       end
     end
 
@@ -41,8 +41,18 @@ module Archive
       end
     end
 
+    attr_reader :strip_components
+
     def initialize(params = {})
       super C.method(:archive_read_new), C.method(:archive_read_finish)
+
+      if params[:strip_components]
+        raise ArgumentError, "Expected Integer as strip_components" unless params[:strip_components].is_a?(Integer)
+
+        @strip_components = params[:strip_components]
+      else
+        @strip_components = 0
+      end
 
       if params[:command]
         cmd = params[:command]
@@ -131,12 +141,16 @@ module Archive
 
     def each_entry
       while (entry = next_header)
+        next if strip_entry_components!(entry).nil?
+
         yield entry
       end
     end
 
     def each_entry_with_data(_size = C::DATA_BUFFER_SIZE)
       while (entry = next_header)
+        next if strip_entry_components!(entry).nil?
+
         yield entry, read_data
       end
     end
@@ -169,6 +183,58 @@ module Archive
     def save_data(file_name)
       IO.sysopen(file_name, "wb") do |fd|
         raise Error, @archive if C.archive_read_data_into_fd(archive, fd) != C::OK
+      end
+    end
+
+    private
+
+    #
+    # See:
+    #   1. https://github.com/libarchive/libarchive/blob/6a9dcf9fc429e2dc9fb08e669bf7b0bed4d5edf9/tar/read.c#L346
+    #   2. https://github.com/libarchive/libarchive/blob/a11f15860ae39ecdc8173243a211cdafc8ac893c/tar/util.c#L523-L535
+    #   3. https://github.com/libarchive/libarchive/blob/a11f15860ae39ecdc8173243a211cdafc8ac893c/tar/util.c#L554-L560
+    #
+    # @param entry [Archive::Entry]
+    #
+    # @return [Archive::Entry, nil] entry stripped or nil if entry is no longer relevant due to stripping
+    #
+    def strip_entry_components!(entry)
+      if strip_components > 0
+        name = entry.pathname
+        original_name = name.dup
+        hardlink_name = entry.hardlink
+        original_hardlink_name = hardlink_name.dup
+
+        strip_path_components!(name)
+        return if name.empty?
+
+        unless hardlink_name.nil?
+          strip_path_components!(hardlink_name)
+          return if hardlink_name.empty?
+        end
+
+        if name != original_name
+          entry.copy_pathname(name)
+        end
+        entry.copy_hardlink(hardlink_name) if hardlink_name != original_hardlink_name
+      end
+
+      entry
+    end
+
+    #
+    # @param path [String]
+    #
+    # @return [String]
+    #
+    def strip_path_components!(path)
+      if strip_components > 0
+        is_dir = path.end_with?("/")
+        updated_path = path.split("/").drop(strip_components).join("/")
+        updated_path = is_dir && updated_path != "" ? updated_path + "/" : updated_path
+        path.gsub!(path, updated_path)
+      else
+        path
       end
     end
   end
