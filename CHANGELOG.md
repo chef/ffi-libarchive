@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.0 -->
-## [v1.1.0](https://github.com/chef/ffi-libarchive/tree/v1.1.0) (2021-08-17)
+<!-- latest_release 1.1.1 -->
+## [v1.1.1](https://github.com/chef/ffi-libarchive/tree/v1.1.1) (2021-08-17)
 
 #### Merged Pull Requests
-- Remove support for EOL Ruby 2.4 [#59](https://github.com/chef/ffi-libarchive/pull/59) ([tas50](https://github.com/tas50))
+- Update chefstyle requirement from 1.7.5 to 2.0.8 [#60](https://github.com/chef/ffi-libarchive/pull/60) ([dependabot[bot]](https://github.com/dependabot[bot]))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.0.17 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Update chefstyle requirement from 1.7.5 to 2.0.8 [#60](https://github.com/chef/ffi-libarchive/pull/60) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.1 -->
 - Remove support for EOL Ruby 2.4 [#59](https://github.com/chef/ffi-libarchive/pull/59) ([tas50](https://github.com/tas50)) <!-- 1.1.0 -->
 - Upgrade to GitHub-native Dependabot [#56](https://github.com/chef/ffi-libarchive/pull/56) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.21 -->
 - Update chefstyle requirement from 1.7.2 to 1.7.5 [#55](https://github.com/chef/ffi-libarchive/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.20 -->
