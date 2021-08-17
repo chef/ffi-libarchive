@@ -11,16 +11,6 @@ expeditor:
 
 steps:
 
-- label: run-lint-and-specs-ruby-2.4
-  commands:
-    - apt-get update
-    - apt-get install -y libarchive13
-    - .expeditor/run_linux_tests.sh rake
-  expeditor:
-    executor:
-      docker:
-        image: ruby:2.4-buster
-
 - label: run-lint-and-specs-ruby-2.5
   commands:
     - apt-get update
