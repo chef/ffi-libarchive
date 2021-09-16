@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.2 -->
-## [v1.1.2](https://github.com/chef/ffi-libarchive/tree/v1.1.2) (2021-08-27)
+<!-- latest_release 1.1.3 -->
+## [v1.1.3](https://github.com/chef/ffi-libarchive/tree/v1.1.3) (2021-09-16)
 
 #### Merged Pull Requests
-- Update chefstyle requirement from 2.0.8 to 2.0.9 [#61](https://github.com/chef/ffi-libarchive/pull/61) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- Add strip components support [#58](https://github.com/chef/ffi-libarchive/pull/58) ([jasonwbarnett](https://github.com/jasonwbarnett))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.0.17 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Add strip components support [#58](https://github.com/chef/ffi-libarchive/pull/58) ([jasonwbarnett](https://github.com/jasonwbarnett)) <!-- 1.1.3 -->
 - Update chefstyle requirement from 2.0.8 to 2.0.9 [#61](https://github.com/chef/ffi-libarchive/pull/61) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.2 -->
 - Update chefstyle requirement from 1.7.5 to 2.0.8 [#60](https://github.com/chef/ffi-libarchive/pull/60) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.1 -->
 - Remove support for EOL Ruby 2.4 [#59](https://github.com/chef/ffi-libarchive/pull/59) ([tas50](https://github.com/tas50)) <!-- 1.1.0 -->
