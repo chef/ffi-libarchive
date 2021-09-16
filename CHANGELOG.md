@@ -1,28 +1,26 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.3 -->
-## [v1.1.3](https://github.com/chef/ffi-libarchive/tree/v1.1.3) (2021-09-16)
-
-#### Merged Pull Requests
-- Add strip components support [#58](https://github.com/chef/ffi-libarchive/pull/58) ([jasonwbarnett](https://github.com/jasonwbarnett))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=1.0.17 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Add strip components support [#58](https://github.com/chef/ffi-libarchive/pull/58) ([jasonwbarnett](https://github.com/jasonwbarnett)) <!-- 1.1.3 -->
-- Update chefstyle requirement from 2.0.8 to 2.0.9 [#61](https://github.com/chef/ffi-libarchive/pull/61) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.2 -->
-- Update chefstyle requirement from 1.7.5 to 2.0.8 [#60](https://github.com/chef/ffi-libarchive/pull/60) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.1 -->
-- Remove support for EOL Ruby 2.4 [#59](https://github.com/chef/ffi-libarchive/pull/59) ([tas50](https://github.com/tas50)) <!-- 1.1.0 -->
-- Upgrade to GitHub-native Dependabot [#56](https://github.com/chef/ffi-libarchive/pull/56) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.21 -->
-- Update chefstyle requirement from 1.7.2 to 1.7.5 [#55](https://github.com/chef/ffi-libarchive/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.20 -->
-- Update chefstyle requirement from 1.7.1 to 1.7.2 [#53](https://github.com/chef/ffi-libarchive/pull/53) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.19 -->
-- Update chefstyle requirement from 1.6.2 to 1.7.1 [#52](https://github.com/chef/ffi-libarchive/pull/52) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 1.0.18 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v1.1.3](https://github.com/chef/ffi-libarchive/tree/v1.1.3) (2021-09-16)
+
+#### Merged Pull Requests
+- Update chefstyle requirement from 1.6.2 to 1.7.1 [#52](https://github.com/chef/ffi-libarchive/pull/52) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Update chefstyle requirement from 1.7.1 to 1.7.2 [#53](https://github.com/chef/ffi-libarchive/pull/53) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Update chefstyle requirement from 1.7.2 to 1.7.5 [#55](https://github.com/chef/ffi-libarchive/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Upgrade to GitHub-native Dependabot [#56](https://github.com/chef/ffi-libarchive/pull/56) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Remove support for EOL Ruby 2.4 [#59](https://github.com/chef/ffi-libarchive/pull/59) ([tas50](https://github.com/tas50))
+- Update chefstyle requirement from 1.7.5 to 2.0.8 [#60](https://github.com/chef/ffi-libarchive/pull/60) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- Update chefstyle requirement from 2.0.8 to 2.0.9 [#61](https://github.com/chef/ffi-libarchive/pull/61) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- Add strip components support [#58](https://github.com/chef/ffi-libarchive/pull/58) ([jasonwbarnett](https://github.com/jasonwbarnett))
+<!-- latest_stable_release -->
+
 ## [v1.0.17](https://github.com/chef/ffi-libarchive/tree/v1.0.17) (2021-02-10)
 
 #### Merged Pull Requests
@@ -39,7 +37,6 @@
 - Test on Ruby 3.0 [#49](https://github.com/chef/ffi-libarchive/pull/49) ([tas50](https://github.com/tas50))
 - Update chefstyle requirement from 1.6.1 to 1.6.2 [#50](https://github.com/chef/ffi-libarchive/pull/50) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 - Extend the reader API to extract to destination [#51](https://github.com/chef/ffi-libarchive/pull/51) ([lamont-granquist](https://github.com/lamont-granquist))
-<!-- latest_stable_release -->
 
 ## [v1.0.4](https://github.com/chef/ffi-libarchive/tree/v1.0.4) (2020-08-13)
 
