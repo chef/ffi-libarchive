@@ -7,6 +7,7 @@ group :test do
   gem "rspec", "~> 3.0"
   gem "rake"
   gem "test-unit"
+  gem "ffi"
 end
 
 group :debug do
