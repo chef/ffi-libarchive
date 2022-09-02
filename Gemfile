@@ -23,9 +23,12 @@ end
 # We copy (and overwrite) these files every time "bundle <exec|install>" is
 # executed, just in case they have changed.
 if RUBY_PLATFORM =~ /mswin|mingw|windows/
+  puts "<===in windows platform===>"
   instance_eval do
     ruby_exe_dir = RbConfig::CONFIG["bindir"]
+    puts "<===ruby_exe_dir #{ruby_exe_dir}===>"
     assemblies = Dir.glob(File.expand_path("distro/ruby_bin_folder", Dir.pwd) + "/*.dll")
+    puts "<===assemblies #{assemblies.inspect}===>"
     FileUtils.cp_r assemblies, ruby_exe_dir, verbose: false unless ENV["_BUNDLER_LIBARCHIVE_DLLS_COPIED"]
     ENV["_BUNDLER_LIBARCHIVE_DLLS_COPIED"] = "1"
   end

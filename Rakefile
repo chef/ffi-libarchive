@@ -1,5 +1,9 @@
-require "bundler/gem_tasks"
+require "bundler"
+Bundler::GemHelper.install_tasks name: "ffi-libarchive"
+
+# require "bundler/gem_tasks"
 require "rake/testtask"
+
 begin
   require "chefstyle"
   require "rubocop/rake_task"

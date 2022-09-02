@@ -123,6 +123,7 @@ class TS_ReadArchive < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       Archive.read_open_filename("data/test.tar.gz") do |ar|
         ar.each_entry do |e|
+          p e
           ar.extract(e, destination: dir)
           assert_not_equal File.mtime(e.pathname), e.mtime
         end
@@ -184,6 +185,9 @@ class TS_ReadArchive < Test::Unit::TestCase
       orig_pos = fp.tell
       fp.seek(offset, :CUR)
       fp.tell - orig_pos
+    rescue =>e
+      e.backtrace.grep(/ffi-libarchive/).grep_v(/vendor/).each { |b| puts b }
+      p e
     end
 
     def seek(offset, whence)
