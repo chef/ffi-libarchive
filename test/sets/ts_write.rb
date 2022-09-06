@@ -15,6 +15,10 @@ class TS_WriteArchive < Test::Unit::TestCase
     ["test/a.dat", "file", 0777, "\021\216\231Y\354\236\271\372\336\213\224R\211{D{\277\262\304\211xu\330\\\275@~\035\vSRM".b ],
   ].freeze
 
+  def windows?
+    RUBY_PLATFORM =~ /mswin|mingw|windows/
+  end
+
   def test_end_to_end_write_read_tar_gz
     Dir.mktmpdir do |dir|
       Archive.write_open_filename(dir + "/test.tar.gz", :gzip, :tar) do |ar|
@@ -34,6 +38,8 @@ class TS_WriteArchive < Test::Unit::TestCase
   end
 
   def test_end_to_end_write_read_tar_gz_with_external_gzip
+    return if windows?
+
     Dir.mktmpdir do |dir|
       Archive.write_open_filename(dir + "/test.tar.gz", "gzip", :tar) do |ar|
         write_content(ar)

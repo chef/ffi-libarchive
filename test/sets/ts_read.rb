@@ -21,31 +21,45 @@ class TS_ReadArchive < Test::Unit::TestCase
     end
   end
 
+  def windows?
+    RUBY_PLATFORM =~ /mswin|mingw|windows/
+  end
+
   def test_read_tar_gz_from_file
+    return if windows?
+
     Archive.read_open_filename("data/test.tar.gz") do |ar|
       verify_content(ar)
     end
   end
 
   def test_read_tar_gz_from_file_with_external_gunzip
+    return if windows?
+
     Archive.read_open_filename("data/test.tar.gz", "gunzip") do |ar|
       verify_content(ar)
     end
   end
 
   def test_read_tar_gz_from_memory
+    return if windows?
+
     Archive.read_open_memory(@archive_content) do |ar|
       verify_content(ar)
     end
   end
 
   def test_read_tar_gz_from_memory_with_external_gunzip
+    return if windows?
+
     Archive.read_open_memory(@archive_content, "gunzip") do |ar|
       verify_content(ar)
     end
   end
 
   def test_read_entry_bigger_than_internal_buffer
+    return if windows?
+
     alphabet = "abcdefghijklmnopqrstuvwxyz"
     entry_size = 1024 * 4 - 3
 
@@ -91,6 +105,8 @@ class TS_ReadArchive < Test::Unit::TestCase
   end
 
   def test_read_entry_not_reused_if_clone_is_specified
+    return if windows?
+
     expect_pathname, expect_type, expect_mode, = CONTENT_SPEC.first
 
     Archive.read_open_filename("data/test.tar.gz") do |ar|
@@ -107,6 +123,8 @@ class TS_ReadArchive < Test::Unit::TestCase
   end
 
   def test_extract_no_additional_flags
+    return if windows?
+
     Dir.mktmpdir do |dir|
       Archive.read_open_filename("data/test.tar.gz") do |ar|
         Dir.chdir(dir) do
@@ -120,6 +138,8 @@ class TS_ReadArchive < Test::Unit::TestCase
   end
 
   def test_extract_destination
+    return if windows?
+
     Dir.mktmpdir do |dir|
       Archive.read_open_filename("data/test.tar.gz") do |ar|
         ar.each_entry do |e|
@@ -131,6 +151,8 @@ class TS_ReadArchive < Test::Unit::TestCase
   end
 
   def test_extract_extract_time
+    return if windows?
+
     Dir.mktmpdir do |dir|
       Archive.read_open_filename("data/test.tar.gz") do |ar|
         Dir.chdir(dir) do
@@ -146,6 +168,8 @@ class TS_ReadArchive < Test::Unit::TestCase
   end
 
   def test_read_from_stream_with_proc
+    return if windows?
+
     fp = File.open("data/test.tar.gz", "rb")
     reader = Proc.new do
       fp.read(32)
