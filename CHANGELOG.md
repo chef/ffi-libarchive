@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.8 -->
-## [v1.1.8](https://github.com/chef/ffi-libarchive/tree/v1.1.8) (2022-03-18)
+<!-- latest_release 1.1.9 -->
+## [v1.1.9](https://github.com/chef/ffi-libarchive/tree/v1.1.9) (2022-09-07)
 
 #### Merged Pull Requests
-- add ruby 3.1 in verfiy pipeline [#69](https://github.com/chef/ffi-libarchive/pull/69) ([skeshari12](https://github.com/skeshari12))
+- INFC-158 fix build from addition of Ruby 3.0/3.1 tests for Windows [#71](https://github.com/chef/ffi-libarchive/pull/71) ([tpowell-progress](https://github.com/tpowell-progress))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.1.3 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- INFC-158 fix build from addition of Ruby 3.0/3.1 tests for Windows [#71](https://github.com/chef/ffi-libarchive/pull/71) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.9 -->
 - add ruby 3.1 in verfiy pipeline [#69](https://github.com/chef/ffi-libarchive/pull/69) ([skeshari12](https://github.com/skeshari12)) <!-- 1.1.8 -->
 - Update chefstyle requirement from 2.1.3 to 2.2.0 [#66](https://github.com/chef/ffi-libarchive/pull/66) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.7 -->
 - Update chefstyle requirement from 2.1.1 to 2.1.3 [#65](https://github.com/chef/ffi-libarchive/pull/65) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.6 -->
