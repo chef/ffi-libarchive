@@ -12,6 +12,7 @@ module Archive
 
     attach_function :archive_version_number, [], :int
     attach_function :archive_version_string, [], :string
+
     attach_function :archive_error_string, [:pointer], :string
     attach_function :archive_errno, [:pointer], :int
 
