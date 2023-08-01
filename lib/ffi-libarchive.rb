@@ -1,3 +1,4 @@
+# This is a test
 module Archive
   # :stopdoc:
   LIBPATH ||= __dir__ + ::File::SEPARATOR
