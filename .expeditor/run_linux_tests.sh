@@ -11,6 +11,6 @@ echo "--- bundle install"
 
 bundle config --local path vendor/bundle
 bundle install --jobs=7 --retry=3
-
+bundle pristine ffi
 echo "+++ bundle exec task"
 bundle exec $@
