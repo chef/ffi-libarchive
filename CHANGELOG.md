@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.10 -->
-## [v1.1.10](https://github.com/chef/ffi-libarchive/tree/v1.1.10) (2023-08-02)
+<!-- latest_release 1.1.11 -->
+## [v1.1.11](https://github.com/chef/ffi-libarchive/tree/v1.1.11) (2023-08-03)
 
 #### Merged Pull Requests
-- Bundle pristine to patch 3.1 ruby [#78](https://github.com/chef/ffi-libarchive/pull/78) ([tpowell-progress](https://github.com/tpowell-progress))
+- Expose archive format compression methods [#74](https://github.com/chef/ffi-libarchive/pull/74) ([sj26](https://github.com/sj26))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.1.3 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Expose archive format compression methods [#74](https://github.com/chef/ffi-libarchive/pull/74) ([sj26](https://github.com/sj26)) <!-- 1.1.11 -->
 - Bundle pristine to patch 3.1 ruby [#78](https://github.com/chef/ffi-libarchive/pull/78) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.10 -->
 - INFC-158 fix build from addition of Ruby 3.0/3.1 tests for Windows [#71](https://github.com/chef/ffi-libarchive/pull/71) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.9 -->
 - add ruby 3.1 in verfiy pipeline [#69](https://github.com/chef/ffi-libarchive/pull/69) ([skeshari12](https://github.com/skeshari12)) <!-- 1.1.8 -->
