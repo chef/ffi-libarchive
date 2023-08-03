@@ -25,6 +25,20 @@ class TS_ReadArchive < Test::Unit::TestCase
     RUBY_PLATFORM =~ /mswin|mingw|windows/
   end
 
+  def test_archive_methods
+    return if windows?
+
+    Archive.read_open_filename("data/test.tar.gz") do |ar|
+      # Must read an entry to start reading archive
+      ar.next_header
+
+      assert_equal ar.format, Archive::FORMAT_TAR | Archive::FORMAT_TAR_GNUTAR
+      assert_equal ar.format_name, "GNU tar format"
+      assert_equal ar.compression, Archive::COMPRESSION_GZIP
+      assert_equal ar.compression_name, "gzip"
+    end
+  end
+
   def test_read_tar_gz_from_file
     return if windows?
 

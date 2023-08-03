@@ -12,8 +12,13 @@ module Archive
 
     attach_function :archive_version_number, [], :int
     attach_function :archive_version_string, [], :string
-    attach_function :archive_error_string, [:pointer], :string
+
+    attach_function :archive_compression, [:pointer], :int
+    attach_function :archive_compression_name, [:pointer], :string
     attach_function :archive_errno, [:pointer], :int
+    attach_function :archive_error_string, [:pointer], :string
+    attach_function :archive_format, [:pointer], :int
+    attach_function :archive_format_name, [:pointer], :string
 
     attach_function :archive_read_new, [], :pointer
     attach_function :archive_read_open_filename, %i{pointer string size_t}, :int
@@ -355,12 +360,28 @@ module Archive
     end
     protected :archive
 
+    def compression
+      C.archive_compression(@archive)
+    end
+
+    def compression_name
+      C.archive_compression_name(@archive)
+    end
+
     def error_string
       C.archive_error_string(@archive)
     end
 
     def errno
       C.archive_errno(@archive)
+    end
+
+    def format
+      C.archive_format(@archive)
+    end
+
+    def format_name
+      C.archive_format_name(@archive)
     end
   end
 end
