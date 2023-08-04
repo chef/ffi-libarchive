@@ -1,4 +1,5 @@
 require "ffi-libarchive"
+require "stringio"
 require "tmpdir"
 require "test/unit"
 
@@ -72,6 +73,46 @@ class TS_ReadArchive < Test::Unit::TestCase
       Archive.read_open_fd(f.fileno, "gunzip") do |ar|
         verify_content(ar)
       end
+    end
+  end
+
+  def test_read_tar_gz_from_io
+    return if windows?
+
+    File.open("data/test.tar.gz", "r") do |f|
+      Archive.read_open_io(f) do |ar|
+        verify_content(ar)
+      end
+    end
+  end
+
+  def test_read_tar_gz_from_io_with_external_gunzip
+    return if windows?
+
+    File.open("data/test.tar.gz", "r") do |f|
+      Archive.read_open_io(f, "gunzip") do |ar|
+        verify_content(ar)
+      end
+    end
+  end
+
+  def test_read_tar_gz_from_io_no_fileno
+    return if windows?
+
+    string = File.read("data/test.tar.gz")
+
+    assert_raise ArgumentError, "Expected io to respond to #fileno" do
+      Archive.read_open_io(string)
+    end
+  end
+
+  def test_read_tar_gz_from_string_io
+    return if windows?
+
+    io = StringIO.new(File.read("data/test.tar.gz"))
+
+    assert_raise ArgumentError, "Expected io.fileno to return an fd but got nil" do
+      Archive.read_open_io(io)
     end
   end
 

@@ -294,6 +294,10 @@ module Archive
     Reader.open_fd fd, command, &block
   end
 
+  def self.read_open_io(io, command = nil, &block)
+    Reader.open_io io, command, &block
+  end
+
   def self.read_open_memory(string, command = nil, &block)
     Reader.open_memory string, command, &block
   end
