@@ -15,6 +15,19 @@ module Archive
       end
     end
 
+    def self.open_fd(fd, command = nil, strip_components: 0)
+      if block_given?
+        reader = open_fd fd, command, strip_components: strip_components
+        begin
+          yield reader
+        ensure
+          reader.close
+        end
+      else
+        new fd: fd, command: command, strip_components: strip_components
+      end
+    end
+
     def self.open_memory(string, command = nil)
       if block_given?
         reader = open_memory string, command
@@ -66,6 +79,8 @@ module Archive
       case
       when params[:file_name]
         raise Error, @archive if C.archive_read_open_filename(archive, params[:file_name], 1024) != C::OK
+      when params[:fd]
+        raise Error, @archive if C.archive_read_open_fd(archive, params[:fd], 1024) != C::OK
       when params[:memory]
         str = params[:memory]
         @data = FFI::MemoryPointer.new(str.bytesize + 1)

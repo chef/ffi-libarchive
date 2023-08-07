@@ -55,6 +55,26 @@ class TS_ReadArchive < Test::Unit::TestCase
     end
   end
 
+  def test_read_tar_gz_from_fd
+    return if windows?
+
+    File.open("data/test.tar.gz", "r") do |f|
+      Archive.read_open_fd(f.fileno) do |ar|
+        verify_content(ar)
+      end
+    end
+  end
+
+  def test_read_tar_gz_from_fd_with_external_gunzip
+    return if windows?
+
+    File.open("data/test.tar.gz", "r") do |f|
+      Archive.read_open_fd(f.fileno, "gunzip") do |ar|
+        verify_content(ar)
+      end
+    end
+  end
+
   def test_read_tar_gz_from_memory
     return if windows?
 
