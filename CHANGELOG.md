@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.12 -->
-## [v1.1.12](https://github.com/chef/ffi-libarchive/tree/v1.1.12) (2023-08-07)
+<!-- latest_release 1.1.13 -->
+## [v1.1.13](https://github.com/chef/ffi-libarchive/tree/v1.1.13) (2023-08-07)
 
 #### Merged Pull Requests
-- Allow opening archive from fd [#75](https://github.com/chef/ffi-libarchive/pull/75) ([sj26](https://github.com/sj26))
+- Add .buildkite directory to fix the build [#79](https://github.com/chef/ffi-libarchive/pull/79) ([tpowell-progress](https://github.com/tpowell-progress))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.1.3 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Add .buildkite directory to fix the build [#79](https://github.com/chef/ffi-libarchive/pull/79) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.13 -->
 - Allow opening archive from fd [#75](https://github.com/chef/ffi-libarchive/pull/75) ([sj26](https://github.com/sj26)) <!-- 1.1.12 -->
 - Expose archive format compression methods [#74](https://github.com/chef/ffi-libarchive/pull/74) ([sj26](https://github.com/sj26)) <!-- 1.1.11 -->
 - Bundle pristine to patch 3.1 ruby [#78](https://github.com/chef/ffi-libarchive/pull/78) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.10 -->
