@@ -22,6 +22,7 @@ module Archive
 
     attach_function :archive_read_new, [], :pointer
     attach_function :archive_read_open_filename, %i{pointer string size_t}, :int
+    attach_function :archive_read_open_fd, %i{pointer int size_t}, :int
     attach_function :archive_read_open_memory, %i{pointer pointer size_t}, :int
     attach_function :archive_read_open1, [:pointer], :int
     attach_function :archive_read_support_compression_program, %i{pointer string}, :int
@@ -287,6 +288,10 @@ module Archive
 
   def self.read_open_filename(file_name, command = nil, &block)
     Reader.open_filename file_name, command, &block
+  end
+
+  def self.read_open_fd(fd, command = nil, &block)
+    Reader.open_fd fd, command, &block
   end
 
   def self.read_open_memory(string, command = nil, &block)
