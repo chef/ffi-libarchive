@@ -181,12 +181,14 @@ module Archive
         raise "ffi-inliner build for copy_stat failed:\n#{e}"
       end
 
-      stat = Archive::Stat.ffi_libarchive_create_lstat(filename)
-      raise Error, "Copy stat failed: #{Archive::Stat.ffi_error}" if stat.null?
+      begin
+        stat = Archive::Stat.ffi_libarchive_create_lstat(filename)
+        raise Error, "Copy stat failed: #{Archive::Stat.ffi_error}" if stat.null?
 
-      C.archive_entry_copy_stat(entry, stat)
-    ensure
-      Archive::Stat.ffi_libarchive_free_stat(stat)
+        C.archive_entry_copy_stat(entry, stat)
+      ensure
+        Archive::Stat.ffi_libarchive_free_stat(stat)
+      end
     end
 
     def copy_pathname(file_name)
@@ -207,12 +209,14 @@ module Archive
         raise "ffi-inliner build for copy_stat failed:\n#{e}"
       end
 
-      stat = Archive::Stat.ffi_libarchive_create_stat(filename)
-      raise Error, "Copy stat failed: #{Archive::Stat.ffi_error}" if stat.null?
+      begin
+        stat = Archive::Stat.ffi_libarchive_create_stat(filename)
+        raise Error, "Copy stat failed: #{Archive::Stat.ffi_error}" if stat.null?
 
-      C.archive_entry_copy_stat(entry, stat)
-    ensure
-      Archive::Stat.ffi_libarchive_free_stat(stat)
+        C.archive_entry_copy_stat(entry, stat)
+      ensure
+        Archive::Stat.ffi_libarchive_free_stat(stat)
+      end
     end
 
     def copy_symlink(slnk)
