@@ -43,7 +43,7 @@ module Archive
 
     def self.open_stream(reader)
       if block_given?
-        reader = new reader: reader
+        reader = open_stream reader
         begin
           yield reader
         ensure
