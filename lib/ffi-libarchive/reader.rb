@@ -41,16 +41,16 @@ module Archive
       end
     end
 
-    def self.open_stream(reader)
+    def self.open_stream(reader, command = nil)
       if block_given?
-        reader = open_stream reader
+        reader = open_stream reader, command
         begin
           yield reader
         ensure
           reader.close
         end
       else
-        new reader: reader
+        new reader: reader, command: command
       end
     end
 
