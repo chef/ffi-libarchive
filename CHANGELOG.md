@@ -1,30 +1,28 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.13 -->
-## [v1.1.13](https://github.com/chef/ffi-libarchive/tree/v1.1.13) (2023-08-07)
-
-#### Merged Pull Requests
-- Add .buildkite directory to fix the build [#79](https://github.com/chef/ffi-libarchive/pull/79) ([tpowell-progress](https://github.com/tpowell-progress))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=1.1.3 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Add .buildkite directory to fix the build [#79](https://github.com/chef/ffi-libarchive/pull/79) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.13 -->
-- Allow opening archive from fd [#75](https://github.com/chef/ffi-libarchive/pull/75) ([sj26](https://github.com/sj26)) <!-- 1.1.12 -->
-- Expose archive format compression methods [#74](https://github.com/chef/ffi-libarchive/pull/74) ([sj26](https://github.com/sj26)) <!-- 1.1.11 -->
-- Bundle pristine to patch 3.1 ruby [#78](https://github.com/chef/ffi-libarchive/pull/78) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.10 -->
-- INFC-158 fix build from addition of Ruby 3.0/3.1 tests for Windows [#71](https://github.com/chef/ffi-libarchive/pull/71) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.1.9 -->
-- add ruby 3.1 in verfiy pipeline [#69](https://github.com/chef/ffi-libarchive/pull/69) ([skeshari12](https://github.com/skeshari12)) <!-- 1.1.8 -->
-- Update chefstyle requirement from 2.1.3 to 2.2.0 [#66](https://github.com/chef/ffi-libarchive/pull/66) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.7 -->
-- Update chefstyle requirement from 2.1.1 to 2.1.3 [#65](https://github.com/chef/ffi-libarchive/pull/65) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.6 -->
-- Update chefstyle requirement from 2.1.0 to 2.1.1 [#63](https://github.com/chef/ffi-libarchive/pull/63) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.5 -->
-- Update chefstyle requirement from 2.0.9 to 2.1.0 [#62](https://github.com/chef/ffi-libarchive/pull/62) ([dependabot[bot]](https://github.com/dependabot[bot])) <!-- 1.1.4 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v1.1.13](https://github.com/chef/ffi-libarchive/tree/v1.1.13) (2023-09-18)
+
+#### Merged Pull Requests
+- Update chefstyle requirement from 2.0.9 to 2.1.0 [#62](https://github.com/chef/ffi-libarchive/pull/62) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- Update chefstyle requirement from 2.1.0 to 2.1.1 [#63](https://github.com/chef/ffi-libarchive/pull/63) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- Update chefstyle requirement from 2.1.1 to 2.1.3 [#65](https://github.com/chef/ffi-libarchive/pull/65) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- Update chefstyle requirement from 2.1.3 to 2.2.0 [#66](https://github.com/chef/ffi-libarchive/pull/66) ([dependabot[bot]](https://github.com/dependabot[bot]))
+- add ruby 3.1 in verfiy pipeline [#69](https://github.com/chef/ffi-libarchive/pull/69) ([skeshari12](https://github.com/skeshari12))
+- INFC-158 fix build from addition of Ruby 3.0/3.1 tests for Windows [#71](https://github.com/chef/ffi-libarchive/pull/71) ([tpowell-progress](https://github.com/tpowell-progress))
+- Bundle pristine to patch 3.1 ruby [#78](https://github.com/chef/ffi-libarchive/pull/78) ([tpowell-progress](https://github.com/tpowell-progress))
+- Expose archive format compression methods [#74](https://github.com/chef/ffi-libarchive/pull/74) ([sj26](https://github.com/sj26))
+- Allow opening archive from fd [#75](https://github.com/chef/ffi-libarchive/pull/75) ([sj26](https://github.com/sj26))
+- Add .buildkite directory to fix the build [#79](https://github.com/chef/ffi-libarchive/pull/79) ([tpowell-progress](https://github.com/tpowell-progress))
+<!-- latest_stable_release -->
+
 ## [v1.1.3](https://github.com/chef/ffi-libarchive/tree/v1.1.3) (2021-09-16)
 
 #### Merged Pull Requests
@@ -36,7 +34,6 @@
 - Update chefstyle requirement from 1.7.5 to 2.0.8 [#60](https://github.com/chef/ffi-libarchive/pull/60) ([dependabot[bot]](https://github.com/dependabot[bot]))
 - Update chefstyle requirement from 2.0.8 to 2.0.9 [#61](https://github.com/chef/ffi-libarchive/pull/61) ([dependabot[bot]](https://github.com/dependabot[bot]))
 - Add strip components support [#58](https://github.com/chef/ffi-libarchive/pull/58) ([jasonwbarnett](https://github.com/jasonwbarnett))
-<!-- latest_stable_release -->
 
 ## [v1.0.17](https://github.com/chef/ffi-libarchive/tree/v1.0.17) (2021-02-10)
 
