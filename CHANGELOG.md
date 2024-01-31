@@ -1,10 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release -->
+<!-- latest_release 1.1.14 -->
+## [v1.1.14](https://github.com/chef/ffi-libarchive/tree/v1.1.14) (2024-01-31)
+
+#### Merged Pull Requests
+- Correct return type of archive_read_data (fix RARv5 support) [#86](https://github.com/chef/ffi-libarchive/pull/86) ([tbolender](https://github.com/tbolender))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=1.1.13 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Correct return type of archive_read_data (fix RARv5 support) [#86](https://github.com/chef/ffi-libarchive/pull/86) ([tbolender](https://github.com/tbolender)) <!-- 1.1.14 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
