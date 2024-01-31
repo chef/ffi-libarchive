@@ -10,9 +10,6 @@
 
 <!-- latest_stable_release -->
 ## [v1.1.14](https://github.com/chef/ffi-libarchive/tree/v1.1.14) (2024-01-31)
-<!-- latest_stable_release -->
-
-## [v1.1.14](https://github.com/chef/ffi-libarchive/tree/v1.1.14) (2024-01-31)
 
 #### Merged Pull Requests
 - Correct return type of archive_read_data (fix RARv5 support) [#86](https://github.com/chef/ffi-libarchive/pull/86) ([tbolender](https://github.com/tbolender))
