@@ -1,21 +1,19 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.1.14 -->
+<!-- latest_release -->
+<!-- latest_release -->
+
+<!-- release_rollup -->
+<!-- release_rollup -->
+
+<!-- latest_stable_release -->
 ## [v1.1.14](https://github.com/chef/ffi-libarchive/tree/v1.1.14) (2024-01-31)
 
 #### Merged Pull Requests
 - Correct return type of archive_read_data (fix RARv5 support) [#86](https://github.com/chef/ffi-libarchive/pull/86) ([tbolender](https://github.com/tbolender))
-<!-- latest_release -->
-
-<!-- release_rollup since=1.1.13 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Correct return type of archive_read_data (fix RARv5 support) [#86](https://github.com/chef/ffi-libarchive/pull/86) ([tbolender](https://github.com/tbolender)) <!-- 1.1.14 -->
-<!-- release_rollup -->
-
 <!-- latest_stable_release -->
+
 ## [v1.1.13](https://github.com/chef/ffi-libarchive/tree/v1.1.13) (2023-09-18)
 
 #### Merged Pull Requests
@@ -29,7 +27,6 @@
 - Expose archive format compression methods [#74](https://github.com/chef/ffi-libarchive/pull/74) ([sj26](https://github.com/sj26))
 - Allow opening archive from fd [#75](https://github.com/chef/ffi-libarchive/pull/75) ([sj26](https://github.com/sj26))
 - Add .buildkite directory to fix the build [#79](https://github.com/chef/ffi-libarchive/pull/79) ([tpowell-progress](https://github.com/tpowell-progress))
-<!-- latest_stable_release -->
 
 ## [v1.1.3](https://github.com/chef/ffi-libarchive/tree/v1.1.3) (2021-09-16)
 
