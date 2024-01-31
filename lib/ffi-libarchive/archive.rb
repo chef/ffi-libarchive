@@ -82,7 +82,7 @@ module Archive
     attach_function :archive_read_extract, %i{pointer pointer int}, :int
     attach_function :archive_read_header_position, [:pointer], :int
     attach_function :archive_read_next_header, %i{pointer pointer}, :int
-    attach_function :archive_read_data, %i{pointer pointer size_t}, :size_t
+    attach_function :archive_read_data, %i{pointer pointer size_t}, :ssize_t
     attach_function :archive_read_data_into_fd, %i{pointer int}, :int
 
     attach_function :archive_write_new, [], :pointer
