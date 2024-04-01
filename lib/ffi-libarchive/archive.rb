@@ -8,7 +8,7 @@ module Archive
     end
 
     extend FFI::Library
-    ffi_lib %w{liblzma.a}
+    ffi_lib %w{liblzma liblzma.la}
     ffi_lib %w{libarchive.so.13 libarchive.13 libarchive-13 libarchive.so libarchive archive libarchive.a}
 
     attach_function :archive_version_number, [], :int
