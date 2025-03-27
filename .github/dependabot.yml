@@ -8,6 +8,6 @@ updates:
     timezone: America/Los_Angeles
   open-pull-requests-limit: 10
   ignore:
-  - dependency-name: chefstyle
+  - dependency-name: cookstyle
     versions:
-    - 1.7.4
+    - 7.32.8

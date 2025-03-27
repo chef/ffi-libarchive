@@ -1,19 +1,19 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gemspec
 
 group :test do
-  gem "chefstyle", "2.2.0"
-  gem "rspec", "~> 3.0"
-  gem "rake"
-  gem "test-unit"
-  gem "ffi"
+  gem 'cookstyle'
+  gem 'rspec', '~> 3.0'
+  gem 'rake'
+  gem 'test-unit'
+  gem 'ffi'
 end
 
 group :debug do
-  gem "pry"
-  gem "pry-byebug"
-  gem "rb-readline"
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'rb-readline'
 end
 
 # These lines added for Windows (x64) development only.
@@ -24,9 +24,9 @@ end
 # executed, just in case they have changed.
 if RUBY_PLATFORM =~ /mswin|mingw|windows/
   instance_eval do
-    ruby_exe_dir = RbConfig::CONFIG["bindir"]
-    assemblies = Dir.glob(File.expand_path("distro/ruby_bin_folder", Dir.pwd) + "/*.dll")
-    FileUtils.cp_r assemblies, ruby_exe_dir, verbose: false unless ENV["_BUNDLER_LIBARCHIVE_DLLS_COPIED"]
-    ENV["_BUNDLER_LIBARCHIVE_DLLS_COPIED"] = "1"
+    ruby_exe_dir = RbConfig::CONFIG['bindir']
+    assemblies = Dir.glob(File.expand_path('distro/ruby_bin_folder', Dir.pwd) + '/*.dll')
+    FileUtils.cp_r assemblies, ruby_exe_dir, verbose: false unless ENV['_BUNDLER_LIBARCHIVE_DLLS_COPIED']
+    ENV['_BUNDLER_LIBARCHIVE_DLLS_COPIED'] = '1'
   end
 end

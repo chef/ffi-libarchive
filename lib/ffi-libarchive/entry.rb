@@ -18,7 +18,7 @@ module Archive
     FIFO              = 0010000 #  FIFO
 
     def self.from_pointer(entry, clone: false)
-      new entry, clone: clone
+      new entry, clone:
     end
 
     def initialize(entry = nil, clone: false)

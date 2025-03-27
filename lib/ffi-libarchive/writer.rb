@@ -11,7 +11,7 @@ module Archive
           writer.close
         end
       else
-        new file_name: file_name, compression: compression, format: format
+        new file_name:, compression:, format:
       end
     end
 
@@ -27,7 +27,7 @@ module Archive
         if compression.is_a? String
           compression = -1
         end
-        new memory: string, compression: compression, format: format
+        new memory: string, compression:, format:
       end
     end
 
@@ -108,7 +108,7 @@ module Archive
 
     def write_data(*args)
       if block_given?
-        raise ArgumentError, "wrong number of argument (#{args.size} for 0)" if args.size > 0
+        raise ArgumentError, "wrong number of argument (#{args.size} for 0)" unless args.empty?
 
         ar = archive
         len = 0

@@ -11,7 +11,7 @@ module Archive
           reader.close
         end
       else
-        new file_name: file_name, command: command, strip_components: strip_components
+        new file_name:, command:, strip_components:
       end
     end
 
@@ -24,7 +24,7 @@ module Archive
           reader.close
         end
       else
-        new fd: fd, command: command, strip_components: strip_components
+        new fd:, command:, strip_components:
       end
     end
 
@@ -37,7 +37,7 @@ module Archive
           reader.close
         end
       else
-        new memory: string, command: command
+        new memory: string, command:
       end
     end
 
@@ -50,7 +50,7 @@ module Archive
           reader.close
         end
       else
-        new reader: reader
+        new reader:
       end
     end
 
@@ -70,27 +70,26 @@ module Archive
       if params[:command]
         cmd = params[:command]
         raise Error, @archive if C.archive_read_support_compression_program(archive, cmd) != C::OK
-      else
-        raise Error, @archive if C.archive_read_support_compression_all(archive) != C::OK
+      elsif C.archive_read_support_compression_all(archive) != C::OK
+        raise Error, @archive
       end
 
       raise Error, @archive if C.archive_read_support_format_all(archive) != C::OK
 
-      case
-      when params[:file_name]
+      if params[:file_name]
         raise Error, @archive if C.archive_read_open_filename(archive, params[:file_name], 1024) != C::OK
-      when params[:fd]
+      elsif params[:fd]
         raise Error, @archive if C.archive_read_open_fd(archive, params[:fd], 1024) != C::OK
-      when params[:memory]
+      elsif params[:memory]
         str = params[:memory]
         @data = FFI::MemoryPointer.new(str.bytesize + 1)
         @data.write_string str, str.bytesize
         raise Error, @archive if C.archive_read_open_memory(archive, @data, str.bytesize) != C::OK
-      when params[:reader]
+      elsif params[:reader]
         @reader = params[:reader]
         @buffer = nil
 
-        @read_callback = FFI::Function.new(:int, %i{pointer pointer pointer}) do |_, _, archive_data|
+        @read_callback = FFI::Function.new(:int, %i(pointer pointer pointer)) do |_, _, archive_data|
           data = @reader.call || ""
           @buffer = FFI::MemoryPointer.new(:char, data.size) if @buffer.nil? || @buffer.size < data.size
           @buffer.write_bytes(data)
@@ -100,14 +99,14 @@ module Archive
         C.archive_read_set_read_callback(archive, @read_callback)
 
         if @reader.respond_to?(:skip)
-          @skip_callback = FFI::Function.new(:int, %i{pointer pointer int64}) do |_, _, offset|
+          @skip_callback = FFI::Function.new(:int, %i(pointer pointer int64)) do |_, _, offset|
             @reader.skip(offset)
           end
           C.archive_read_set_skip_callback(archive, @skip_callback)
         end
 
         if @reader.respond_to?(:seek)
-          @seek_callback = FFI::Function.new(:int, %i{pointer pointer int64 int}) do |_, _, offset, whence|
+          @seek_callback = FFI::Function.new(:int, %i(pointer pointer int64 int)) do |_, _, offset, whence|
             @reader.seek(offset, whence)
           end
           C.archive_read_set_seek_callback(archive, @seek_callback)
