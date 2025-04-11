@@ -185,7 +185,7 @@ module Archive
           if block_given?
             yield buffer.get_bytes(0, n)
           else
-            data ||= ""
+            data ||= String.new
             data.concat(buffer.get_bytes(0, n))
           end
         end
