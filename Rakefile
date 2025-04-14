@@ -4,15 +4,20 @@ Bundler::GemHelper.install_tasks name: "ffi-libarchive"
 # require "bundler/gem_tasks"
 require "rake/testtask"
 
-begin
-  require "chefstyle"
+desc "Check Linting and code style."
+task :style do
   require "rubocop/rake_task"
-  desc "Run Chefstyle tests"
-  RuboCop::RakeTask.new(:style) do |task|
-    task.options += ["--display-cop-names", "--no-color"]
+  require "cookstyle/chefstyle"
+
+  if RbConfig::CONFIG["host_os"] =~ /mswin|mingw|cygwin/
+    # Windows-specific command, rubocop erroneously reports the CRLF in each file which is removed when your PR is uploaeded to GitHub.
+    # This is a workaround to ignore the CRLF from the files before running cookstyle.
+    sh "cookstyle --chefstyle -c .rubocop.yml --except Layout/EndOfLine"
+  else
+    sh "cookstyle --chefstyle -c .rubocop.yml"
   end
 rescue LoadError
-  puts "chefstyle gem is not installed. bundle install first to make sure all dependencies are installed."
+  puts "Rubocop or Cookstyle gems are not installed. bundle install first to make sure all dependencies are installed."
 end
 
 Rake::TestTask.new(:test) do |t|
@@ -22,8 +27,8 @@ Rake::TestTask.new(:test) do |t|
 end
 
 desc "Run style & unit tests on Travis"
-task travis: %w{test style}
+task travis: %w{test}
 
 # Default
 desc "Run style, unit"
-task default: %w{test style}
+task default: %w{test}

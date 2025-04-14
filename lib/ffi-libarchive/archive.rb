@@ -8,7 +8,11 @@ module Archive
     end
 
     extend FFI::Library
-    ffi_lib %w{libarchive.so.13 libarchive.13 libarchive-13 libarchive.so libarchive archive}
+    if RUBY_PLATFORM.match?(/mswin|mingw|windows/)
+      ffi_lib %w{libarchive archive}
+    else
+      ffi_lib %w{libarchive.so.13 libarchive.13 libarchive-13 libarchive.so libarchive archive}
+    end
 
     attach_function :archive_version_number, [], :int
     attach_function :archive_version_string, [], :string

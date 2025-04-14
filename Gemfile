@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gemspec
 
 group :test do
-  gem "chefstyle", "2.2.0"
+  gem "cookstyle", ">= 7.32.8"
   gem "rspec", "~> 3.0"
   gem "rake"
   gem "test-unit"
