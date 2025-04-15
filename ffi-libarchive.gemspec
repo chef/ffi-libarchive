@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
 
   s.files = %w{ LICENSE } + Dir.glob("lib/**/*", File::FNM_DOTMATCH).reject { |f| File.directory?(f) }
   s.require_paths = %w{lib}
-  s.required_ruby_version = ">= 2.5"
-
+  s.required_ruby_version = ">= 3.0"
   s.add_dependency "ffi", "~> 1.0"
 end
