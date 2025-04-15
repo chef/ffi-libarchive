@@ -1,11 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release -->
+<!-- latest_release 1.1.15 -->
+## [v1.1.15](https://github.com/chef/ffi-libarchive/tree/v1.1.15) (2025-04-15)
+
+#### Merged Pull Requests
+- Change for META [#91](https://github.com/chef/ffi-libarchive/pull/91) ([johnmccrae](https://github.com/johnmccrae))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.1.14 -->
 ### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Change for META [#91](https://github.com/chef/ffi-libarchive/pull/91) ([johnmccrae](https://github.com/johnmccrae)) <!-- 1.1.15 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
