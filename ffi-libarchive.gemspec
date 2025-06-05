@@ -16,6 +16,4 @@ Gem::Specification.new do |s|
   s.require_paths = %w{lib}
   s.required_ruby_version = ">= 3.0"
   s.add_dependency "ffi", "~> 1.17"
-
-  s.add_development_dependency "cookstyle", "~> 8.1"
 end

@@ -9,6 +9,10 @@ group :test do
   gem "ffi"
 end
 
+group :style do
+  gem "cookstyle", "~> 8.1"
+end
+
 group :debug do
   gem "pry"
   gem "pry-byebug"
