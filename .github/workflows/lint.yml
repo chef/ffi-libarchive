@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - 18-stable
 
 concurrency:
   group: lint-${{ github.ref }}
