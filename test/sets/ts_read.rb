@@ -1,5 +1,6 @@
 require "ffi-libarchive"
 require "tmpdir"
+require "zlib"
 require "test/unit"
 
 class TS_ReadArchive < Test::Unit::TestCase
@@ -88,6 +89,20 @@ class TS_ReadArchive < Test::Unit::TestCase
 
     Archive.read_open_memory(@archive_content, "gunzip") do |ar|
       verify_content(ar)
+    end
+  end
+
+  def test_read_gz_from_memory
+    data = "test"
+    archive_data = Zlib.gzip(data)
+
+    Archive.read_open_memory(archive_data, nil, raw: true) do |ar|
+      entry = ar.next_header
+      entry_data = ar.read_data
+
+      assert_equal entry.size_is_set?, false
+      assert_equal entry_data.bytesize, data.bytesize
+      assert_equal entry_data, data
     end
   end
 
