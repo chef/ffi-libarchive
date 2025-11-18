@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.2.1 -->
-## [v1.2.1](https://github.com/chef/ffi-libarchive/tree/v1.2.1) (2025-11-14)
+<!-- latest_release 1.2.2 -->
+## [v1.2.2](https://github.com/chef/ffi-libarchive/tree/v1.2.2) (2025-11-18)
 
 #### Merged Pull Requests
-- set up ai assisted development workflow [#99](https://github.com/chef/ffi-libarchive/pull/99) ([rishichawda](https://github.com/rishichawda))
+- Update AI compliance workflow in copilot instructions [#100](https://github.com/chef/ffi-libarchive/pull/100) ([rishichawda](https://github.com/rishichawda))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.1.14 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Update AI compliance workflow in copilot instructions [#100](https://github.com/chef/ffi-libarchive/pull/100) ([rishichawda](https://github.com/rishichawda)) <!-- 1.2.2 -->
 - set up ai assisted development workflow [#99](https://github.com/chef/ffi-libarchive/pull/99) ([rishichawda](https://github.com/rishichawda)) <!-- 1.2.1 -->
 - Updating for Ruby 3.4 and Cookstyle [#92](https://github.com/chef/ffi-libarchive/pull/92) ([johnmccrae](https://github.com/johnmccrae)) <!-- 1.2.0 -->
 - Change for META [#91](https://github.com/chef/ffi-libarchive/pull/91) ([johnmccrae](https://github.com/johnmccrae)) <!-- 1.1.15 -->
