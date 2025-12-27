@@ -2,9 +2,9 @@ module Archive
   class Reader < BaseArchive
     private_class_method :new
 
-    def self.open_filename(file_name, command = nil, strip_components: 0)
+    def self.open_filename(file_name, command = nil, strip_components: 0, raw: false)
       if block_given?
-        reader = open_filename file_name, command, strip_components: strip_components
+        reader = open_filename file_name, command, strip_components: strip_components, raw: raw
         begin
           yield reader
         ensure
@@ -15,42 +15,42 @@ module Archive
       end
     end
 
-    def self.open_fd(fd, command = nil, strip_components: 0)
+    def self.open_fd(fd, command = nil, strip_components: 0, raw: false)
       if block_given?
-        reader = open_fd fd, command, strip_components: strip_components
+        reader = open_fd fd, command, strip_components: strip_components, raw: raw
         begin
           yield reader
         ensure
           reader.close
         end
       else
-        new fd: fd, command: command, strip_components: strip_components
+        new fd: fd, command: command, strip_components: strip_components, raw: raw
       end
     end
 
-    def self.open_memory(string, command = nil)
+    def self.open_memory(string, command = nil, raw: false)
       if block_given?
-        reader = open_memory string, command
+        reader = open_memory string, command, raw: raw
         begin
           yield reader
         ensure
           reader.close
         end
       else
-        new memory: string, command: command
+        new memory: string, command: command, raw: raw
       end
     end
 
-    def self.open_stream(reader)
+    def self.open_stream(reader, command = nil, raw: false)
       if block_given?
-        reader = new reader: reader
+        reader = open_stream reader, command, raw: raw
         begin
           yield reader
         ensure
           reader.close
         end
       else
-        new reader: reader
+        new reader: reader, command: command, raw: raw
       end
     end
 
@@ -74,7 +74,11 @@ module Archive
         raise Error, @archive if C.archive_read_support_compression_all(archive) != C::OK
       end
 
-      raise Error, @archive if C.archive_read_support_format_all(archive) != C::OK
+      if params[:raw]
+        raise Error, @archive if C.archive_read_support_format_raw(archive) != C::OK
+      else
+        raise Error, @archive if C.archive_read_support_format_all(archive) != C::OK
+      end
 
       case
       when params[:file_name]
