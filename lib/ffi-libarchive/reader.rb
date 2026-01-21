@@ -28,6 +28,19 @@ module Archive
       end
     end
 
+    def self.open_io(io, command = nil, strip_components: 0)
+      if block_given?
+        reader = open_io io, command, strip_components: strip_components
+        begin
+          yield reader
+        ensure
+          reader.close
+        end
+      else
+        new io: io, command: command, strip_components: strip_components
+      end
+    end
+
     def self.open_memory(string, command = nil)
       if block_given?
         reader = open_memory string, command
@@ -81,6 +94,15 @@ module Archive
         raise Error, @archive if C.archive_read_open_filename(archive, params[:file_name], 1024) != C::OK
       when params[:fd]
         raise Error, @archive if C.archive_read_open_fd(archive, params[:fd], 1024) != C::OK
+      when params[:io]
+        # Hold a reference to the IO so Ruby understands we're using it while this object is alive
+        @io = params[:io]
+        raise ArgumentError, "Expected io to respond to #fileno" unless @io.respond_to?(:fileno)
+
+        fd = @io.fileno
+        raise ArgumentError, "Expected io.fileno to return an fd but got nil" if fd.nil?
+
+        raise Error, @archive if C.archive_read_open_fd(archive, fd, 1024) != C::OK
       when params[:memory]
         str = params[:memory]
         @data = FFI::MemoryPointer.new(str.bytesize + 1)
