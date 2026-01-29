@@ -1,0 +1,73 @@
+---
+name: test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-linux:
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.1', '3.4']
+    runs-on: ubuntu-latest
+    name: Test Ruby ${{ matrix.ruby }} on Linux
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install libarchive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libarchive13
+      
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      
+      - name: Bundle install
+        run: |
+          bundle config --local path vendor/bundle
+          bundle install --jobs=7 --retry=3
+          bundle pristine ffi
+      
+      - name: Run tests
+        run: bundle exec rake test
+
+  test-windows:
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['3.1', '3.4']
+    runs-on: windows-latest
+    name: Test Ruby ${{ matrix.ruby }} on Windows
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      
+      - name: Bundle install
+        shell: powershell
+        run: |
+          bundle config --local path vendor/bundle
+          if ($lastexitcode -ne 0) { exit $lastexitcode }
+          bundle install --jobs=7 --retry=3
+          if ($lastexitcode -ne 0) { exit $lastexitcode }
+      
+      - name: Run tests
+        shell: powershell
+        run: |
+          bundle exec rake --trace
+          if ($lastexitcode -ne 0) { exit $lastexitcode }
