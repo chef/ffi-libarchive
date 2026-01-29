@@ -11,6 +11,9 @@ concurrency:
   group: lint-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   cookstyle:
     runs-on: ubuntu-latest
