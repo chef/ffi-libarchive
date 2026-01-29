@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.2.2 -->
-## [v1.2.2](https://github.com/chef/ffi-libarchive/tree/v1.2.2) (2025-11-18)
+<!-- latest_release 1.2.3 -->
+## [v1.2.3](https://github.com/chef/ffi-libarchive/tree/v1.2.3) (2026-01-29)
 
 #### Merged Pull Requests
-- Update AI compliance workflow in copilot instructions [#100](https://github.com/chef/ffi-libarchive/pull/100) ([rishichawda](https://github.com/rishichawda))
+- Move buildkite/expeditor tests to GHA [#103](https://github.com/chef/ffi-libarchive/pull/103) ([tpowell-progress](https://github.com/tpowell-progress))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.1.14 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Move buildkite/expeditor tests to GHA [#103](https://github.com/chef/ffi-libarchive/pull/103) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.2.3 -->
 - Update AI compliance workflow in copilot instructions [#100](https://github.com/chef/ffi-libarchive/pull/100) ([rishichawda](https://github.com/rishichawda)) <!-- 1.2.2 -->
 - set up ai assisted development workflow [#99](https://github.com/chef/ffi-libarchive/pull/99) ([rishichawda](https://github.com/rishichawda)) <!-- 1.2.1 -->
 - Updating for Ruby 3.4 and Cookstyle [#92](https://github.com/chef/ffi-libarchive/pull/92) ([johnmccrae](https://github.com/johnmccrae)) <!-- 1.2.0 -->
