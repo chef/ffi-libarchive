@@ -290,20 +290,20 @@ module Archive
   EXTRACT_SECURE_NOABSOLUTEPATHS = 0x10000
   EXTRACT_CLEAR_NOCHANGE_FFLAGS = 0x20000
 
-  def self.read_open_filename(file_name, command = nil, &block)
-    Reader.open_filename file_name, command, &block
+  def self.read_open_filename(file_name, command = nil, params = {}, &block)
+    Reader.open_filename file_name, command, params, &block
   end
 
-  def self.read_open_fd(fd, command = nil, &block)
-    Reader.open_fd fd, command, &block
+  def self.read_open_fd(fd, command = nil, params = {}, &block)
+    Reader.open_fd fd, command, params, &block
   end
 
-  def self.read_open_memory(string, command = nil, &block)
-    Reader.open_memory string, command, &block
+  def self.read_open_memory(string, command = nil, params = {}, &block)
+    Reader.open_memory string, command, params, &block
   end
 
-  def self.read_open_stream(reader, &block)
-    Reader.open_stream reader, &block
+  def self.read_open_stream(reader, command = nil, params = {}, &block)
+    Reader.open_stream reader, command, params, &block
   end
 
   def self.write_open_filename(file_name, compression, format, &block)
