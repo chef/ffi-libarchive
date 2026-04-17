@@ -1,17 +1,18 @@
 <!-- usage documentation: http://expeditor-docs.es.chef.io/configuration/changelog/ -->
 # Change Log
 
-<!-- latest_release 1.2.4 -->
-## [v1.2.4](https://github.com/chef/ffi-libarchive/tree/v1.2.4) (2026-01-29)
+<!-- latest_release 1.2.5 -->
+## [v1.2.5](https://github.com/chef/ffi-libarchive/tree/v1.2.5) (2026-04-17)
 
 #### Merged Pull Requests
-- CHEF-27653 Update and standardize copyright notices to Progress Software Corporation - copyright_update [#102](https://github.com/chef/ffi-libarchive/pull/102) ([clintoncwolfe](https://github.com/clintoncwolfe))
+- CHEF-26009 - Replace CODE_OF_CONDUCT.md file [#98](https://github.com/chef/ffi-libarchive/pull/98) ([cgunasree08](https://github.com/cgunasree08))
 <!-- latest_release -->
 
 <!-- release_rollup since=1.1.14 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- CHEF-26009 - Replace CODE_OF_CONDUCT.md file [#98](https://github.com/chef/ffi-libarchive/pull/98) ([cgunasree08](https://github.com/cgunasree08)) <!-- 1.2.5 -->
 - CHEF-27653 Update and standardize copyright notices to Progress Software Corporation - copyright_update [#102](https://github.com/chef/ffi-libarchive/pull/102) ([clintoncwolfe](https://github.com/clintoncwolfe)) <!-- 1.2.4 -->
 - Move buildkite/expeditor tests to GHA [#103](https://github.com/chef/ffi-libarchive/pull/103) ([tpowell-progress](https://github.com/tpowell-progress)) <!-- 1.2.3 -->
 - Update AI compliance workflow in copilot instructions [#100](https://github.com/chef/ffi-libarchive/pull/100) ([rishichawda](https://github.com/rishichawda)) <!-- 1.2.2 -->
